@@ -1,0 +1,26 @@
+<div id="main" class="container justify-content-center mx-auto">
+    <div class="col-10 mx-auto">
+        <div class="col-6 mx-auto">
+            <h2 class="text-center mt-5">Promenite lozinku</h2>
+            <hr>
+        </div>
+         <div id='errors' class='row text-center'>
+            <div class="input-group invalid-feedback mx-auto text-center justify-content-center mb-3">    
+                {{ERRORS}}
+            </div>  
+        </div>   
+        <form method="POST" action="index.php?page=settings" class="text-center form col-6 mx-auto mt-5">
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Stara lozinka" value='{{PASSWORD}}'>        
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="new_password" placeholder="Nova lozinka" value='{{NEW_PASSWORD}}'>        
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password_confirm" placeholder="Potvrdite lozinku" value='{{CONFIRM_PASSWORD}}'>        
+            </div>
+            <input class="btn btn-dark text-warning" type="submit" name="password_change" value="Promeni">
+        </form>
+    </div>
+</div>
+

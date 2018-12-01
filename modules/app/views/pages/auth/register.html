@@ -1,0 +1,36 @@
+<div id="main" class="container">
+    <div class="col-10 mx-auto mt-5">
+        <div id="header" class="text-center col-6 mx-auto">
+            <h2>Forma za registraciju</h2>
+            <hr>
+            <p>Ukoliko želite da se registrujete molimo Vas da popunite sledeću formu</p>
+            <p class="text-danger"></p>
+        </div>
+         <div id='errors' class='row text-center'>
+            <div class="input-group invalid-feedback mx-auto text-center justify-content-center mb-3">    
+                {{ERRORS}}
+            </div>  
+        </div> 
+        <form method="post" action="index.php?page=register" class="form col-6 mx-auto">
+            <div class="form-group">
+                <label for="user_email" class="my-auto">E-mail adresa: </label>
+                <input type="text" name="user_email" class="form-control" placeholder="email@primer.com" value='{{EMAIL}}' autocomplete="off" >
+            </div>
+            <div class="form-group">
+                <label for="user_name" class="my-auto">Naziv menjacnice: </label>
+                <input type="text" name="user_name" class="form-control" placeholder="Petros Menjačnica" value='{{NAME}}' autocomplete="off" >
+            </div>
+            <div class="form-group">
+                <label for="user_pib" class="my-auto">PIB firme: </label>
+                <input type="text" name="user_pib" class="form-control" placeholder="101951421" value='{{PIB}}' autocomplete="off" >
+            </div>
+            <div class="form-group">
+                <label for="user_location" class="my-auto">Lokacija menjacnice: </label>
+                <input type="text" name="user_location" class="form-control" placeholder="Đuričič Danila 14" value='{{LOCATION}}' autocomplete="off" >
+            </div>
+            <div class="form-send text-center">
+                <input type="submit" id="send_form" name='send_form' class="btn btn-dark text-warning" value="Pošalji">
+            </div>
+        </form>
+    </div>
+</div>

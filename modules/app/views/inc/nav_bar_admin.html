@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+                <div class="container">
+                    <div class="col-2 mx-auto">
+                    <a href="index.php?page=home" class="navbar-brand text-warning h1 mb-0 d-flex">
+                        <div class="col-5 flex-col">
+                            <img src="modules/app/assets/images/logo.png" alt="Logo loading" class="img-fluid">
+                        </div>
+                        <div class="col-6 flex-col my-auto">
+                            Menjator
+                        </div>
+                    </a>
+                    </div>
+                    <div class="navbar-collapse mx-auto">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item mx-3"><a href="index.php?page=home" class="nav-link text-warning"><span class="link-text">Početna</span></a></li>
+                            <li class="nav-item mx-3"><a href="index.php?page=about" class="nav-link text-warning"><span class="link-text">O aplikaciji</span></a></li>
+                            <li class="nav-item mx-3"><a href="index.php?page=contact" class="nav-link text-warning"><span class="link-text">Kontakt</span></a></li>
+                            <li class='nav-item dropdown'><a href='#' class='nav-link dropdown-toggle text-warning' id='navbarDropdown' role='button' data-toggle='dropdown'>{{USERNAME}}</a>
+                                        <div class='dropdown-menu bg-dark' aria-labelledby='navbarDropdown'>
+                                        <a href='index.php?page=user_creation' class='dropdown-item text-warning'><span class='link-text'>Kreiraj korisnika</span></a>
+                                        <a href='index.php?page=logout' class='dropdown-item text-warning'><span class='link-text'>Odjavi se</span></a>
+                                    </div>
+                            
+                            <!--
+                                <li class="nav-item my-auto text-muted">or</li>
+                                <li class="nav-item mx-3"><a href="../auth/register.php" class="nav-link text-warning">Sign up</a></li>
+                            -->
+                        </ul>
+                        <form class="form-inline" action="index.php?page=home" method="get">
+                            <input type="search" id="search_box" name="search_box" class="form-control mr-2" placeholder="Search" aria-label="Search" autocomplete="off">
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </header>

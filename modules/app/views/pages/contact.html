@@ -1,0 +1,38 @@
+<div id="main" class="container text-center justify-content-center mx-auto">
+    <div class="contact-section my-5">
+        <div class="container">
+            <div class="col-10 mx-auto">
+                
+                <form class="form-horizontal col-6 mx-auto" method='post' action='index.php?page=contact'>
+                    <h2>Kontakt</h2>
+                    <hr>
+                    <p>Slobodno nas kontaktirajte putem kontakt forme</p>
+                    <div id='errors' class='row text-center'>
+                        <div class="input-group invalid-feedback mx-auto text-center justify-content-center mb-3">    
+                           {{ERRORS}}
+                        </div>  
+                        </div>       
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="exampleInputName2" name='name' placeholder="Ime Prezime" autocomplete="off" value='{{NAME}}' required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="exampleInputCSubject2" name='subject' placeholder="Naslov" autocomplete="off" value='{{SUBJECT}}'required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail2">Email</label>
+                            <input type="email" class="form-control" id="exampleInputEmail2" name='email' placeholder="email@primer.com" autocomplete="off" value='{{EMAIL}}' required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputText">Poruka</label>
+                            <textarea  cols="20" id='message_body' rows="8" class="form-control" required placeholder="Opis" name='message_body' autocomplete="off" value='{{MESSAGE}}'>
+                                
+                            </textarea>
+                        </div>
+                        <button type="submit" class="btn btn-dark text-warning" name="send">Pošalji</button>
+                    </form>
+                </div>    
+            </div>    
+        </div>
+    </div>
+</div>
+    
