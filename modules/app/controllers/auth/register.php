@@ -1,6 +1,6 @@
 <?php
     if($_SERVER['REQUEST_METHOD'] === "POST") {
-         if($_POST['send_form']){
+        if($_POST['next_step']){
            include('./modules/app/models/auth/register.php');
 
             if(isset($errors)) {
@@ -9,17 +9,18 @@
                 }
             } 
                
-            $map_reg = array('ERRORS' => $errors_print,'EMAIL' => $_POST['user_email'],'NAME' => $_POST['user_name'], 'PIB' => $_POST['user_pib'],'LOCATION' => $_POST['user_location']);
+            $map_reg = array('ERRORS' => $errors_print);
             $register = file_get_contents('./modules/app/views/pages/auth/register.html');
             echo screen_print($register,$map_reg);
             unset($errors);
+            echo $package; 
         }else{
-            $map_reg = array('ERRORS' => '','EMAIL' => '','NAME' => '', 'PIB' => '','LOCATION' => '');
+            $map_reg = array('ERRORS' => '');
             $register = file_get_contents('./modules/app/views/pages/auth/register.html');
             echo screen_print($register,$map_reg);
         }
     }else{
-            $map_reg = array('ERRORS' => '','EMAIL' => '','NAME' => '', 'PIB' => '','LOCATION' => '');
+            $map_reg = array('ERRORS' => '');
             $register = file_get_contents('./modules/app/views/pages/auth/register.html');
             echo screen_print($register,$map_reg);
     }
