@@ -26,7 +26,7 @@ $(document).ready(function() {
     
     
     
-    $('#reg_user_mail').focusout(function(e) {
+    $('#reg_user_mail').keyup(function(e) {
         var text = $(this).val();
 
         $.ajax({
@@ -41,7 +41,7 @@ $(document).ready(function() {
         
     });
 
-    $("#reg_user_name").focusout(function(e) {
+    $("#reg_user_name").keyup(function(e) {
         e.preventDefault();
         var text = $(this).val();
 
@@ -82,23 +82,19 @@ $(document).ready(function() {
     });
     
    
-
     
-    $('#step2_reg input').change(function() {
+    
+    $('#step2_reg input').focusout(function() {
         var empty = false;
         var err = false;
         $('#step2_reg input').each(function() {
-            if($(this).val() != "") {
-                empty = false;
-            } else {
+            if($(this).val().length == 0) {
                 empty = true;
             }
         });
         $('.err').each(function() {
-            if($(this).text() != "") {
+            if($(this).text().length != 0) {
                 err = true;
-            } else {
-                err = false;
             }
         });
         if(empty) {
@@ -110,21 +106,7 @@ $(document).ready(function() {
                 $('#next2').removeAttr('disabled');
             }
         }
+        // console.log('Err: ' + err);
+        // console.log('Empty: ' + empty);
     });
-    // $('#step2_reg input').change(function() {
-    //     var err = false;
-    //     $('.err').each(function() {
-    //         if($(this).val() == ""){
-    //             err = true;
-    //         } else {
-    //             err = false;
-    //         }
-    //         if(err) {
-    //             $('#next2').attr('disabled', 'disabled'); 
-            
-    //         } else {
-    //             $('#next2').removeAttr('disabled');
-    //         }
-    //     })
-    // })
 });

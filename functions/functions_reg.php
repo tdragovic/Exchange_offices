@@ -6,6 +6,8 @@
         $result = $stmt->get_result();
         if($result->num_rows > 0) {
             $errors[] = 'Već postoji nalog sa istim e-mailom';
+        } else {
+            $errors[] = '';
         }
     }
     function checkUsernameReg($username, &$conn, &$errors) {
@@ -15,15 +17,8 @@
         $result = $stmt->get_result();
         if($result->num_rows > 0) {
             $errors[] = 'Već postoji nalog sa istim korisničkim imenom';
-        }
-    }
-    function checkPasswordReg($password, $password_confirm) {
-        if($password === $password_confirm) {
-            if(strlen($password) < 3) {
-                $errors[] = 'Lozinka mora biti duža od 3 karaktera';
-            }
         } else {
-            $errors[] = 'Lozinke se ne podudaraju';
+            $errors[] = '';
         }
     }
 ?>
