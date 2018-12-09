@@ -23,17 +23,108 @@ $(document).ready(function() {
             });
         }
     });
-   /* $("#form1").submit(function(e) {
-        e.preventDefault();
+    
+    
+    
+    $('#reg_user_mail').focusout(function(e) {
+        var text = $(this).val();
+
         $.ajax({
-            url: '../inc/fetch_form.php',
+            url: './modules/app/models/auth/check_reg.php',
             method: 'post',
-            data: $(this).serialize(),
+            data: {email: text},
+            dataType: 'text',
             success: function(data) {
-                alert(data);
+                $('#err1').html(data);
             }
         });
-        $(this).show();
-        $('#info').hide();
-    });*/
+        
+    });
+
+    $("#reg_user_name").focusout(function(e) {
+        e.preventDefault();
+        var text = $(this).val();
+
+        $.ajax({
+            url: './modules/app/models/auth/check_reg.php',
+            method: 'post',
+            data: {username: text},
+            dataType: 'text',
+            success: function(data) {
+                $('#err2').html(data);
+            }
+        }); 
+    });
+
+    $('#reg_pass').on('change', function(e) {
+        var password = $('#reg_pass').val();
+        var password_confirm = $('#reg_pass_confirm').val();
+
+        if(password != password_confirm) {
+            $('#err3').html('Lozinke se razlikuju');
+        } else {
+            $('#err3').html('');
+        }
+    });
+
+
+    
+
+    $('#reg_pass_confirm').on('change', function(e) {
+        var password = $('#reg_pass').val();
+        var password_confirm = $('#reg_pass_confirm').val();
+        
+        if(password != password_confirm) {
+            $('#err3').html('Lozinke se razlikuju');
+        } else {
+            $('#err3').html(''); 
+        }
+    });
+    
+   
+
+    
+    $('#step2_reg input').change(function() {
+        var empty = false;
+        var err = false;
+        $('#step2_reg input').each(function() {
+            if($(this).val() != "") {
+                empty = false;
+            } else {
+                empty = true;
+            }
+        });
+        $('.err').each(function() {
+            if($(this).text() != "") {
+                err = true;
+            } else {
+                err = false;
+            }
+        });
+        if(empty) {
+            $('#next2').attr('disabled', 'disabled'); 
+        } else {
+            if(err) {
+                $('#next2').attr('disabled', 'disabled');
+            } else {
+                $('#next2').removeAttr('disabled');
+            }
+        }
+    });
+    // $('#step2_reg input').change(function() {
+    //     var err = false;
+    //     $('.err').each(function() {
+    //         if($(this).val() == ""){
+    //             err = true;
+    //         } else {
+    //             err = false;
+    //         }
+    //         if(err) {
+    //             $('#next2').attr('disabled', 'disabled'); 
+            
+    //         } else {
+    //             $('#next2').removeAttr('disabled');
+    //         }
+    //     })
+    // })
 });

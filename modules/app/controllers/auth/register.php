@@ -1,6 +1,6 @@
 <?php
     if($_SERVER['REQUEST_METHOD'] === "POST") {
-        if($_POST['next_step']){
+        if(isset($_POST['next_step']) && $_POST['next_step']){
            include('./modules/app/models/auth/register.php');
 
             if(isset($errors)) {
@@ -14,7 +14,7 @@
             echo screen_print($register,$map_reg);
             unset($errors);
             echo $package; 
-        }else{
+        } else {
             $map_reg = array('ERRORS' => '');
             $register = file_get_contents('./modules/app/views/pages/auth/register.html');
             echo screen_print($register,$map_reg);

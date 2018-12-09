@@ -141,8 +141,7 @@ padding-bottom:150px; /* this needs to be bigger than footer height*/
 
 #step2, #step3{
 	display: none;
-	height: 50vh;
-	border:1px solid red;
+	
 }
 
 

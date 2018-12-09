@@ -32,17 +32,21 @@ $(document).ready(function(){
   	});
   	$("#card2").click(function(){
   		$(".package").removeAttr('checked');
-  		$("#package2").attr('checked', 'checked');
+  		$("#package2").attr('checked', true);
   		
   	});
   	$("#card3").click(function(){
   		$(".package").removeAttr('checked');
-  		$("#package3").attr('checked', 'checked');
+  		$("#package3").attr('checked', true);
   		
   	});
   	$("#card1").click(function(){
   		$(".package").removeAttr('checked');
-  		$("#package1").attr('checked', 'checked');
+  		$("#package1").attr('checked', true);
   		
-  	});
+	  });
+	  $('.card').click(function(event) {
+        var result = $('#form_reg input[type=radio]:checked').val();
+        $('#ispis').html(result);
+    });
 });

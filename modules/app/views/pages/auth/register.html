@@ -6,15 +6,19 @@
             <p>Ukoliko želite da se registrujete molimo Vas pratite sledeća uputsva</p>
             <p class="text-danger"></p>
         </div>
-       <div class="arrow-steps clearfix">
-          <div class="step current"> <span> Izbor paketa</span> </div>
-          <div class="step"> <span> Info korisnika <i class="fa fa-user-o" aria-hidden="true"></i></span> </div>
-          <div class="step"> <span> Detalji plaćanja <i class="fa fa-eur" aria-hidden="true"></i></span> </div>
-        </div>
+       <!--<div class="arrow-steps  border clearfix">
+        <div class="step current"> <span> Izbor paketa</span> </div>
+           <div class="step"> <span> Info korisnika <i class="fa fa-user-o" aria-hidden="true"></i></span> </div>
+           <div class="step"> <span> Detalji plaćanja <i class="fa fa-eur" aria-hidden="true"></i></span> </div>
+        </div> -->
         <div id='errors' class='row text-center'>
             <div class="input-group invalid-feedback mx-auto text-center justify-content-center mb-3">    
-                {{ERRORS}}
-            </div>  
+                <span id="err0" class="err"></span>
+                <span id='err1' class="err"></span>
+                <span id='err2' class="err"></span>
+                <span id='err3' class="err"></span>
+            </div>
+              
         </div> 
         <form method="post" action="index.php?page=register" id="form_reg" class="form col mx-auto">
             <div id='step1'>
@@ -70,6 +74,7 @@
                         </ul>
                         <input type="radio"  id="package3" name='package' value='package3' class="btn package">Izaberi</button>
                     </div>
+                    <div id="ispis"></div>
                 </div>
             </div>
             <div class="form-send text-center">
@@ -77,18 +82,43 @@
                 <button type="button" id="next" name='next_step' class="btn btn-dark text-warning next pull-right" disabled='disabled' >Dalje <i class="fa fa-angle-double-right" aria-hidden="true" ></i></button>
             </div>
         </div>
-        <div id="step2" class='col-6 mx-auto'>
-            
+        <div id="step2" class='col-6 mx-auto border'>
+                <div class="mx-auto mt-5">
+                    <div class='row text-center'>
+                        <div id='errors' class="input-group invalid-feedback mx-auto text-center justify-content-center mb-3">    
+                            {{ERRORS}}
+                        </div>  
+                    </div> 
+                    <div id="step2_reg" class="mx-auto border">
+                        <div class="form-group">
+                            <label for="user_email" class="my-auto">E-mail adresa: </label>
+                            <input type="text" id='reg_user_mail' name="email" class="form-control ins"  autocomplete="off" >
+                        </div>
+                        <div class="form-group">
+                            <label for="user_name" class="my-auto">Korisničko ime: </label>
+                            <input id='reg_user_name' type="text" name="username" class="form-control ins"  autocomplete="off" >
+                        </div>
+                        <div class="form-group">
+                            <label for="user_name" class="my-auto">Lozinka: </label>
+                            <input type="password" id='reg_pass' name="password" class="form-control ins" autocomplete="off" >
+                        </div>
+                        <div class="form-group">
+                            <label for="user_pib" class="my-auto">Potvrdite lozinku: </label>
+                            <input type="password" id='reg_pass_confirm' name="password_confirm" class="form-control ins" autocomplete="off" >
+                        </div>
+                    </div>
+                </div>
             <div class="form-send text-center">
                 <button type="button" id="next2" name='next_step' class="btn btn-dark text-warning next pull-right" disabled='disabled'>Dalje <i class="fa fa-angle-double-right" aria-hidden="true" ></i></button>
-            </div>    
+            </div> 
+            <input type="submit" value=''>   
         </div>
         <div id="step3" class='col-6 mx-auto'>
            <div class="form-send text-center">
-                <button type="submit" id="next" name='next_step' class="btn btn-dark text-warning next pull-right" >Potvrdi <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+                <button type="submit" id="next_submit" name='next_step' class="btn btn-dark text-warning next pull-right" >Potvrdi <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
             </div>    
         </div>
-            
+        
     </form>
         <!--<div class="nav clearfix">
         <a href="#" class="prev">Previous</a>

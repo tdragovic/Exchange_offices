@@ -2,6 +2,7 @@
 session_start();
 include("./modules/db/connection.php");
 include("./functions/functions.php"); 
+include("./functions/functions_reg.php");
 $header = file_get_contents('./modules/app/views/inc/header.html');
 $date = date("Y-m-d", time());
 $errors = array();
@@ -189,7 +190,7 @@ if($_GET){
 		include('./modules/app/views/pages/home.php');
 	}
 }else{
-	$map_header = array('TITLE' => titles['home']);
+	$map_header = array('TITLE' => $titles['home']);
 	echo screen_print($header,$map_header);
 	echo screen_print_nav_bar($user,$username);
 	include('./modules/app/views/pages/home.php');
