@@ -74,7 +74,6 @@
                         </ul>
                         <input type="radio"  id="package3" name='package' value='package3' class="btn package">Izaberi</button>
                     </div>
-                    <div id="ispis"></div>
                 </div>
             </div>
             <div class="form-send text-center">
@@ -113,16 +112,78 @@
             </div> 
             <input type="submit" value=''>   
         </div>
-        <div id="step3" class='col-6 mx-auto'>
-           <div class="form-send text-center">
-                <button type="submit" id="next_submit" name='next_step' class="btn btn-dark text-warning next pull-right" >Potvrdi <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
-            </div>    
-        </div>
+         <div id="step3" class='col-6 mx-auto'>
+            <div class="panel panel-default credit-card-box mx-auto">
+                <div class="panel-heading display-table col-10 mb-2" >
+                    <div class="row display-tr" >
+                        <h4 class="display-td mt-2" >Detalji plaćanja</h4>
+                        <div class="display-td" >                            
+                            <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png"/>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="panel-body col-10 max-auto ml-3">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label class='control-label'><i class="fa fa-user-circle-o" aria-hidden="true"></i></label>
+                                <input class='form-control' type='text' placeholder="Ime i prezime sa kartice">
+                            </div>
+                        </div>        
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label for="cardNumber"><i class="fa fa-credit-card mt-2"></i></label>
+                                    <div class="input-group">
+                                        <input type="tel" class="form-control" name="cardNumber" placeholder="Broj kartice" autocomplete="cc-number" required autofocus />
+                                        
+                                    </div>
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="cardExpiry"><span class="hidden-xs"> <i class="fa fa-calendar" aria-hidden="true"></i></span></label>
+                                <input type="tel" class="form-control" name="cardExpiry" placeholder="MM / YY"  autocomplete="cc-exp" required />
+                            </div>
+                        </div>
+                        <div class="col-3 pull-right">
+                            <div class="form-group">
+                                <label for="cardCVC"> <i class="fa fa-lock" aria-hidden="true"></i></label>
+                                    <input type="tel" class="form-control"name="cardCVC" placeholder="CVC" autocomplete="cc-csc" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck3" required>
+                                <label class="form-check-label" for="invalidCheck3">
+                                    Prihvatam <a href="#">uslove</a> korišćenja
+                                </label>
+                                <div style="display:none;">
+                                    Morate se složiti sa uslovima korišćenja
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-send text-center justify-content-center mx-auto mt-3">
+                            <button type="submit" id="next_submit" name='next_step' class="btn btn-dark text-warning next pull-right" >Potvrdi </button>
+                        </div>  
+                    </div>
+                    <div class="row" style="display:none;">
+                        <div class="col-12">
+                            <p class="payment-errors"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
         
     </form>
-        <!--<div class="nav clearfix">
-        <a href="#" class="prev">Previous</a>
-        <a href="#" class="next pull-right">Next</a>
-        </div>-->
+        
     </div>
 </div>

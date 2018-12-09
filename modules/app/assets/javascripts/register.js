@@ -45,8 +45,8 @@ $(document).ready(function(){
   		$("#package1").attr('checked', true);
   		
 	  });
-	  $('.card').click(function(event) {
+	  /*$('.card').click(function(event) {
         var result = $('#form_reg input[type=radio]:checked').val();
         $('#ispis').html(result);
-    });
+    });*/
 });
