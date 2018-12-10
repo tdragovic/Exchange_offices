@@ -28,7 +28,6 @@ $(document).ready(function(){
   	});
   	$(".card").click(function(){
   		$('#next').removeAttr('disabled');
-  		$("#op").hide();
   	});
   	$("#card2").click(function(){
   		$(".package").removeAttr('checked');

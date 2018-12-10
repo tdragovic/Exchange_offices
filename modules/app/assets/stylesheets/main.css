@@ -141,7 +141,8 @@ padding-bottom:150px; /* this needs to be bigger than footer height*/
 
 #step2, #step3{
 	display: none;
-	
 }
-
+.err {
+	display: table-cell;
+}
 

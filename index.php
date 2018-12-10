@@ -19,7 +19,9 @@ $titles = array(
 			'logout' => 'Menjator - Odjava',
 			'success' => 'Menjator',
 			'success_form' => 'Menjator',
-			'settings' => 'Menjator - Podesavanja'
+			'settings' => 'Menjator - Podesavanja',
+			'search_box' => 'Menjator'
+
 		);
 if($_SESSION) {
 	if(isset($_SESSION['logged']) && $_SESSION['logged']) {
@@ -117,7 +119,8 @@ if($_GET){
 				break;
 			case 'success_form' :
 				if($user=='anonymous'){
-					include('./modules/app/views/pages/notifications/success_form.html');
+					#CONTROLLER if($_POST['next_submit'])
+					include('./modules/app/controllers/auth/success_form.php');
 				}else{
 					include('./modules/app/views/pages/notifications/error.php');
 				}

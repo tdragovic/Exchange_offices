@@ -12,15 +12,15 @@
            <div class="step"> <span> Detalji plaćanja <i class="fa fa-eur" aria-hidden="true"></i></span> </div>
         </div> -->
         <div id='errors' class='row text-center'>
-            <div id='errspans' class="input-group invalid-feedback mx-auto text-center justify-content-center mb-3">    
-                <span id="err0" class="err"></span>
-                <span id='err1' class="err"></span>
-                <span id='err2' class="err"></span>
-                <span id='err3' class="err"></span>
+            <div id='errspans' class="input-group invalid-feedback mx-auto text-center justify-content-center">    
+                <span id="err0" class="err col-12"></span>
+                <span id='err1' class="err col-12"></span>
+                <span id='err2' class="err col-12"></span>
+                <span id='err3' class="err col-12"></span>
+                <span id='err4' class="err col-12"></span>
             </div>
-              
         </div> 
-        <form method="post" action="index.php?page=register" id="form_reg" class="form col mx-auto">
+        <form method="post" action="test.php" id="form_reg" class="form col mx-auto">
             <div id='step1'>
                 <div class="card-deck mb-3 text-center">
                 <div id="card1"  class="card mb-4 box-shadow">
@@ -77,25 +77,27 @@
                 </div>
             </div>
             <div class="form-send text-center">
-                <p id='op'>Izaberite!!!!!!!!!!</p>
-                <button type="button" id="next" name='next_step' class="btn btn-dark text-warning next pull-right" disabled='disabled' >Dalje <i class="fa fa-angle-double-right" aria-hidden="true" ></i></button>
+                <div class="mx-auto">
+                    <p id='op' class='my-auto text-muted'>Da biste produžili dalje morate da izaberete paket</p>
+                    <button type="button" id="next" name='next_step' class="btn btn-dark text-warning next ml-auto" disabled='disabled' >Dalje <i class="fa fa-angle-double-right" aria-hidden="true" ></i></button>
+                </div>
             </div>
         </div>
-        <div id="step2" class='col-6 mx-auto border'>
-                <div class="mx-auto mt-5">
-                    <div class='row text-center'>
+        <div id="step2" class='col-6 mx-auto '>
+                <div class="mx-auto mt-5 ">
+                    <!-- <div class='row text-center'>
                         <div id='errors' class="input-group invalid-feedback mx-auto text-center justify-content-center mb-3">    
                             {{ERRORS}}
                         </div>  
-                    </div> 
-                    <div id="step2_reg" class="mx-auto border">
+                    </div>  -->
+                    <div id="step2_reg" class="mx-auto">
                         <div class="form-group">
                             <label for="user_email" class="my-auto">E-mail adresa: </label>
-                            <input type="text" id='reg_user_mail' name="email" class="form-control ins"  autocomplete="off" >
+                            <input type="email" id='reg_user_mail' name="email" class="form-control ins"  autocomplete="off" >
                         </div>
                         <div class="form-group">
                             <label for="user_name" class="my-auto">Korisničko ime: </label>
-                            <input id='reg_user_name' type="text" name="username" class="form-control ins"  autocomplete="off" >
+                            <input type="text" id='reg_user_name' name="username" class="form-control ins"  autocomplete="off" >
                         </div>
                         <div class="form-group">
                             <label for="user_name" class="my-auto">Lozinka: </label>
@@ -108,58 +110,42 @@
                     </div>
                 </div>
             <div class="form-send text-center">
-                <button type="button" id="next2" name='next_step' class="btn btn-dark text-warning next pull-right" disabled='disabled'>Dalje <i class="fa fa-angle-double-right" aria-hidden="true" ></i></button>
+                <div class="col mx-auto">
+                    <p id='op' class='my-auto text-muted'>Da biste produžili dalje morate da popunite sva polja</p>
+                    <button type="button" id="next2" name='next_step' class="btn btn-dark text-warning next ml-auto" disabled='disabled' >Dalje <i class="fa fa-angle-double-right" aria-hidden="true" ></i></button>
+                </div>
             </div> 
             <input type="submit" value=''>   
         </div>
-         <div id="step3" class='col-6 mx-auto'>
+        <div id="step3" class='col-6 mx-auto'>
             <div class="panel panel-default credit-card-box mx-auto">
-                <div class="panel-heading display-table col-10 mb-2" >
+                <div class="panel-heading display-table col-10 mb-2 mx-auto" >
                     <div class="row display-tr" >
                         <h4 class="display-td mt-2" >Detalji plaćanja</h4>
-                        <div class="display-td" >                            
-                            <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png"/>
-                        </div>
                     </div>                    
                 </div>
-                <div class="panel-body col-10 max-auto ml-3">
-                    <div class="row">
-                        <div class="col-8">
+                <div class="panel-body col-10 max-auto">
+                    <div class="row mx-auto">
+                        <div class="col-10 mx-auto">
                             <div class="form-group">
-                                <label class='control-label'><i class="fa fa-user-circle-o" aria-hidden="true"></i></label>
-                                <input class='form-control' type='text' placeholder="Ime i prezime sa kartice">
+                                <label class='control-label'></label>
+                                <input type="radio" id='pay1' name="pay" value="pay_pal" class="payment btn btn-primary"/>
+                                <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_150x38.png">
                             </div>
                         </div>        
                     </div>
-                    <div class="row">
-                        <div class="col-8">
+                    <div class="row mx-auto">
+                        <div class="col-10 mx-auto">
                             <div class="form-group">
-                                <label for="cardNumber"><i class="fa fa-credit-card mt-2"></i></label>
-                                    <div class="input-group">
-                                        <input type="tel" class="form-control" name="cardNumber" placeholder="Broj kartice" autocomplete="cc-number" required autofocus />
-                                        
-                                    </div>
-                            </div>                            
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="cardExpiry"><span class="hidden-xs"> <i class="fa fa-calendar" aria-hidden="true"></i></span></label>
-                                <input type="tel" class="form-control" name="cardExpiry" placeholder="MM / YY"  autocomplete="cc-exp" required />
+                                <label class='control-label'></label>
+                                <input type="radio" id='pay2' name="pay" value="credit_card" class="payment btn btn-primary"/><img class="img-responsive" src="http://i76.imgup.net/accepted_c22e0.png"/>
                             </div>
-                        </div>
-                        <div class="col-3 pull-right">
-                            <div class="form-group">
-                                <label for="cardCVC"> <i class="fa fa-lock" aria-hidden="true"></i></label>
-                                    <input type="tel" class="form-control"name="cardCVC" placeholder="CVC" autocomplete="cc-csc" required />
-                            </div>
-                        </div>
+                        </div>        
                     </div>
-                    <div class="row">
-                        <div class="form-group col-8">
+                   <div class="row mx-auto">
+                        <div class="form-group col-10 mx-auto">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck3" required>
+                                <input class="form-check-input" name='terms' type="checkbox" id="invalidCheck3" required>
                                 <label class="form-check-label" for="invalidCheck3">
                                     Prihvatam <a href="#">uslove</a> korišćenja
                                 </label>
@@ -171,18 +157,12 @@
                     </div>
                     <div class="row">
                         <div class="form-send text-center justify-content-center mx-auto mt-3">
-                            <button type="submit" id="next_submit" name='next_step' class="btn btn-dark text-warning next pull-right" >Potvrdi </button>
+                            <button type="submit" id="next_submit" name='next_step' class="btn btn-dark text-warning next pull-right" disabled='disabled'>Potvrdi </button>
                         </div>  
-                    </div>
-                    <div class="row" style="display:none;">
-                        <div class="col-12">
-                            <p class="payment-errors"></p>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>    
-        
     </form>
         
     </div>
