@@ -1,4 +1,34 @@
+var x = document.getElementById("lng");
+var y = document.getElementById('lat');
+ 
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+    
+function showPosition(position) {
+    x.innerHTML = position.coords.longitude;
+    y.innerHTML = position.coords.latitude;
+}
+
 $(document).ready(function() {
+   
+    $('#lat').bind("DOMSubtreeModified",function(){
+        var lat = $('#lat').text();
+        var lng = $('#lng').text();
+        $.ajax({
+            url: './modules/app/models/fetch_closest.php',
+            method: 'post',
+            data: {lat: lat, lng: lng},
+            dataType: 'text',
+            success: function(data) {
+                $('#info').html(data);
+            }
+        });
+    });
 
     $("#search_box").keyup(function(e) {
         e.preventDefault();
@@ -137,4 +167,7 @@ $(document).ready(function() {
             }
         }
     });
+
+    
 });
+

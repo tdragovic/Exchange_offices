@@ -3,6 +3,8 @@ session_start();
 include("./modules/db/connection.php");
 include("./functions/functions.php"); 
 include("./functions/functions_reg.php");
+include("./functions/functions_api.php");
+
 $header = file_get_contents('./modules/app/views/inc/header.html');
 $date = date("Y-m-d", time());
 $errors = array();
