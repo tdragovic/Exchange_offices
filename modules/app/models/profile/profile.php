@@ -26,7 +26,7 @@
 				$email = "E-mail menjacnice";
 			}
 
-			$stmt = $conn->prepare("SELECT * FROM currency_list WHERE exchange_office_id=?");
+			$stmt = $conn->prepare("SELECT * FROM currency_list WHERE exchange_office_id=? ORDER BY currency_id");
 			$stmt->bind_param('d',$exchange_office_id);
 			$stmt->execute();
 			$res = $stmt->get_result();
