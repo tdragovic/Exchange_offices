@@ -16,9 +16,10 @@
 		</div>
 		<div id='xml_file_button' class='mt-5'>
 			<button type="button" id="xml" class="btn-dark text-warning btn" name="upload_xml">Učitaj XML</button>
-			<form id='xml_file' action='index.php?page=profile&id=<?php echo $exchange_office_id;?>&action=edit_currencylist'' method="post" enctype="multipart/form-data">
+			<form id='xml_file' action='index.php?page=profile&id=<?php echo $exchange_office_id;?>&action=edit_currencylist' method="post" enctype="multipart/form-data">
 				<div class="file_choose mt-4">
-					<input type="file" name="input_xml_file" class='ml-6'>
+					<label for="xml_input">Učitaj XML</label>
+					<input type="file" id='xml_input' name="xml_input" class='ml-6' style='display: none;'/>
 				</div>
 				<div class='file_button mt-4'>
 					<button type="submit" id="save_xml" class="btn-dark text-warning btn" name="save_xml">Sačuvaj</button>
