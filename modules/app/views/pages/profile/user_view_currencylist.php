@@ -1,4 +1,4 @@
-<?<?php  
+<?php  
 	if(count($currency) == count($sell_rate)){
 			echo "<form id='currency_form2' method='POST' action='form.php'>
 					<table class='table table-striped table-bordered'>

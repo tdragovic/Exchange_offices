@@ -5,7 +5,8 @@
     $lat = $lat1 = $_POST['lat'];
     $lng = $lng1 =$_POST['lng'];
     $currencies = array(1,2,3,4,5);
-    
+    $lat = $lat1 = "44.8006737";
+    $lng = $lng1 = "20.491732";
     $api = 'AIzaSyBJBn7elZA5meKmAECWwDy3jT9480ULzB4';
     $start = "$lat,$lng";
     $destinations = ''; # '44.8175329,20.4179972';
@@ -18,7 +19,7 @@
     $stmt->execute();
     $results = $stmt->get_result();
     # PRAVIMO $destinations za api_url
-
+    
     foreach ($results as $key => $result) {
         $lat = $result['exchange_office_lat'];
         $lng = $result['exchange_office_lng'];
@@ -34,6 +35,7 @@
             $destinations .= "|" . $lat . ',' . $lng;
         }
     }
+    print_r($destinations);
     #racunamo razdaljinu i potrebno vreme
 
     $drivingDist = calcDrivingMulti($start, $destinations, $api, $conn);
