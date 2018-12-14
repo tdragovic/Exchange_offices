@@ -83,42 +83,33 @@
 					$new_curr = array($currency_label, $currency_name, $buy, $middle, $sell);
 					$currencies[] = $new_curr;
 				}
-				// $sorted_asc_label[] = asort($label_currency);
 				
-				// foreach ($sell as $key => $value) {
-				// 	$sell_rate[] = $value;
-				// }
-				// foreach ($buy as $key => $value) {
-				// 	$buy_rate[] = $value;
-				// }
-				// foreach ($m as $key => $value) {
-				// 	$middle_rate[] = $value;
-				// }
-				// foreach ($label_currency as $key => $value) {
-				// 	$currency_label[] = $value;
-				// }
-				// foreach ($name_currency as $key => $value) {
-				// 	$currency_name[] = $value;
-				// }
-				
+				sort($currencies);
 				for($i = 0; $i < count($currencies); $i++) {
 					$labels[] = $currencies[$i][0];
 				}
-
 				$stmt = $conn->prepare('SELECT * FROM currency_list INNER JOIN currency ON currency_list.currency_id = currency.currency_id WHERE exchange_office_id = ? ORDER BY currency_label');
 				$stmt->bind_param('d', $exchange_office_id);
 				$stmt->execute();
 				$result = $stmt->get_result();
 
 				foreach($result as $key => $row) {
+					
 					for($i = 0; $i < count($labels); $i++) {
 						if($labels[$i] == $row['currency_label']) {
+							// echo $labels[$i] . " " . $row['currency_label'] . "<br>";
 							$curr_ids[] = $row['currency_id'];
 						}
 					}
 				}
+				echo "Labels: ";
+				print_r($labels);
+				echo "<br>Curr_ids: ";
+				print_r($curr_ids);
 				foreach($labels as $key => $value) {
 					if ($list > 0) {
+						// echo $value . " " . $curr_ids[$key] . "<br>";
+
 						$stmt = $conn->prepare("UPDATE currency_list SET sell_rate=?, avg_rate = ?, buy_rate=?, `date` = ? WHERE exchange_office_id=? AND currency_id=?");
 						$stmt->bind_param('dddsdd', $currencies[$key][2], $currencies[$key][3], $currencies[$key][4], $date, $exchange_office_id, $curr_ids[$key]);
 						$stmt->execute();
