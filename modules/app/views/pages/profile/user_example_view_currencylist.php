@@ -29,6 +29,6 @@
 							echo $t;
 					}
 		echo "</tbody>
-			</table><a href='index.php?page=currencylist_edit&id=$get_id'><input type='button' id='currency_edit3' class='btn-dark text-warning btn' name='edit_currency' value='Izmeni'></a>
+			</table><a href='index.php?page=profile&id=$get_id&action=edit_currencylist'><input type='button' id='currency_edit3' class='btn-dark text-warning btn' name='edit_currency' value='Izmeni'></a>
 		</form>";				
 ?>

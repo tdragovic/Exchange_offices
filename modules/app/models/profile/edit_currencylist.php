@@ -66,8 +66,8 @@
 
 			$file = $_FILES['xml_input'];
 			$xml = simplexml_load_file($file['tmp_name']);
-			// print_r($xml);
-			if($xml != ''){
+
+			if($xml != '' && $file['type'] === 'text/xml'){
 				
 				$ex_name = $xml->ExchangeOffice;
 				$date = $xml->Date;
@@ -102,10 +102,7 @@
 						}
 					}
 				}
-				echo "Labels: ";
-				print_r($labels);
-				echo "<br>Curr_ids: ";
-				print_r($curr_ids);
+				
 				foreach($labels as $key => $value) {
 					if ($list > 0) {
 						// echo $value . " " . $curr_ids[$key] . "<br>";

@@ -56,7 +56,7 @@
 						$rate = $value->rate;
 						$rate_buy = $value->rate_sale;
 						$curr_label = $value->curr_label;
-						$curr_title = $value-> curr_title;
+						$curr_title = $value->curr_title;
 						$numero = 17;
 					} elseif ($this->shop == "erste") {
 						$curr_label = $value->Oznaka;
@@ -90,6 +90,10 @@
 						$stmt->bind_param('ddd', $rate_buy, $rate, $rate_sell);
 						$stmt->execute();
 					}
+					// echo $curr_label;
+					// $stmt = $this->conn->prepare("INSERT INTO all_time_currency (exchange_office_id, currency_label, sell_rate, avg_rate, buy_rate, date) VALUES ('$exchange_office_id', '$curr_label', ?, ?, ?, '$this->date')");
+					// $stmt->bind_param('ddd', $rate_buy, $rate, $rate_sell);
+					// $stmt->execute();
 				}
 			}
 		}

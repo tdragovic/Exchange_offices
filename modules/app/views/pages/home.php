@@ -30,10 +30,10 @@
                 </div>            
             </div>
         </div> -->
-        <div id='info' class="container-fluid">
-                
+        <div id='info' class="row text-center mx-auto my-5" style='min-height: 67vh;'>
+            <img id="loading-ajax" class='text-center mx-auto my-auto'  src="./modules/app/assets/images/ajax-loader.gif" style="display:none;"/>                    
         </div>
-        <div id="container" class="row text-center my-5">
+        <div id="container" class="row text-center mx-auto my-5">
             <table id="currency_table" class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -53,6 +53,12 @@
                 </tbody>
                 <tbody id="currency_body">
             <?php
+                foreach($names as $key => $value) {
+                    # izbacujemo iz niza one koji nemaju ime
+                    if($value == "") {
+                        unset($names[$key]);
+                    }
+                }
                 for($i = 0; $i < count($names); $i++) {
                     
             ?>

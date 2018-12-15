@@ -35,7 +35,7 @@
             $destinations .= "|" . $lat . ',' . $lng;
         }
     }
-    print_r($destinations);
+    // print_r($destinations);
     #racunamo razdaljinu i potrebno vreme
 
     $drivingDist = calcDrivingMulti($start, $destinations, $api, $conn);
@@ -105,7 +105,6 @@
 ?>
 <?php
     $format = "
-    <div class='row mt-5'>
         <table class='table table-bordered text-center table-hover'>
             <thead>
                 <tr>
@@ -129,7 +128,7 @@
                     %s
             </tbody>
         </table>
-    </div>";
+    ";
     $table = "<tr>
                 <td class='align-middle'>%s</td>
                 <td class='align-middle'>%s</td>

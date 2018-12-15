@@ -31,12 +31,15 @@
 			$stmt->execute();
 			$res = $stmt->get_result();
 			$list = $res->num_rows;
-
+			
 			foreach ($res as $key => $value) {
-				$currency_id = $conn->real_escape_string($value['currency_id']);
-				$sell_rate[] = $conn->real_escape_string($value['sell_rate']);
-				$buy_rate[] = $conn->real_escape_string($value['buy_rate']);
-				$diff[] = $conn->real_escape_string($value['diff_24h']);
-				$currency[] = getCurrencyInfo($currency_id);
+				if($value['sell_rate'] != '0.0000') {
+					$currency_id = $conn->real_escape_string($value['currency_id']);
+					$sell_rate[] = $conn->real_escape_string($value['sell_rate']);
+					$buy_rate[] = $conn->real_escape_string($value['buy_rate']);
+					$diff[] = $conn->real_escape_string($value['diff_24h']);
+					$currency[] = getCurrencyInfo($currency_id);
+				}
+				
 			}
 ?>

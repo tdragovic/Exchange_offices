@@ -15,7 +15,9 @@ function showPosition(position) {
 }
 
 $(document).ready(function() {
-   
+
+    
+
     $('#lat').bind("DOMSubtreeModified",function(){
         var lat = $('#lat').text();
         var lng = $('#lng').text();
@@ -24,6 +26,9 @@ $(document).ready(function() {
             method: 'post',
             data: {lat: lat, lng: lng},
             dataType: 'text',
+            beforeSend: function() {
+                $("#loading-ajax").show();
+            },
             success: function(data) {
                 $('#info').html(data);
             }

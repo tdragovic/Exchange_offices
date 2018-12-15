@@ -75,20 +75,18 @@
 								}
 								if(count($currency_list)!=count($label)){
 									$currency_label = array_diff($currency_list,$label);
-								}
-								foreach ($currency_label as $key => $value){
-									
-
-											$t = sprintf("<tr>
-											<td><label>%s</label><input type='hidden' name='label%d' value='%s'></td>
-											<td><input  class='form-control text-center' type='text' name='sell_rate%d' value='0'></td>
-											<td><input  class='form-control text-center' type='text' name='buy_rate%d' value='0'></td>
-											<td><input  class='form-control text-center' type='text' readonly placeholder='0'></td>
-											</tr>", $value, $key, $value,  $key,  $key);
-											echo $t;
+									foreach ($currency_label as $key => $value){
 										
-									
+										$t = sprintf("<tr>
+										<td><label>%s</label><input type='hidden' name='label%d' value='%s'></td>
+										<td><input  class='form-control text-center' type='text' name='sell_rate%d' value='0'></td>
+										<td><input  class='form-control text-center' type='text' name='buy_rate%d' value='0'></td>
+										<td><input  class='form-control text-center' type='text' readonly placeholder='0'></td>
+										</tr>", $value, $key, $value,  $key,  $key);
+										echo $t;
+									}
 								}
+								
 									
 							
 						}else{

@@ -155,8 +155,9 @@
 						$stmt->execute();
 					}
 				}
-
-				
+				// $stmt = $this->conn->prepare("INSERT INTO all_time_currency (exchange_office_id, currency_label, sell_rate, avg_rate, buy_rate, date) VALUES ('$exchange_office_id', '$curr_label', ?, ?, ?, ?)");
+				// $stmt->bind_param('ddds', $rate_sell, $avg_rate, $rate_buy, $date);
+				// $stmt->execute();
 			}
 			
 			//$stmt = $this->conn->prepare("INSERT INTO currency_list (exchange_office_id, currency_id, sell_rate, avg_rate, buy_rate, date) VALUES ('$exchange_office_id', '$id', ?, ?, ?, ?)");

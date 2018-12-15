@@ -5,7 +5,7 @@
             <h2 class="text-center">Prijavi se</h2>
             <hr>
             <input type="text" class="form-control my-3" name="username" placeholder="Korisničko ime" autocomplete="off"
-            value='{{USERNAME}}' >
+			value='{{USERNAME}}' >
             <input type="password" class="form-control my-3" name="password" placeholder="Lozinka"
             value='{{PASSWORD}}' >
         </div>
@@ -14,6 +14,9 @@
                 {{ERRORS}}
             </div>  
         </div>
+        
+            {{CAPTCHA}}
+        
         <input type="submit" class="btn btn-dark text-warning" name='login' value="Pošalji">
     </form>
 </div>

@@ -139,7 +139,7 @@ padding-bottom:150px; /* this needs to be bigger than footer height*/
 	border-left: 17px solid #23468c;	
 }
 
-#step2, #step3 {
+#step2, #step3, .listen {
 	display: none;
 }
 .err {
