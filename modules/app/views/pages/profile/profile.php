@@ -2,6 +2,7 @@
 	include('./modules/app/models/profile/profile.php');
 ?>
 	<div id='main' class='container text-center justify-content-center mx-auto'>
+
 		<?php
 			if($username=='admin'){
 				if(isset($_GET['action']) && $action=='edit_profile'){
@@ -42,8 +43,11 @@
 				include("./modules/app/views/pages/notifications/error.php");
 			}
 			
-
+			// include("./modules/app/views/pages/profile/chart.php");
 			
 		?>
+	<div id="chart_prof" class='text-center'></div>
+    <script type="text/javascript" src="./modules/app/assets/javascripts/prof_chart.js"></script>
+
 	</div>
 	

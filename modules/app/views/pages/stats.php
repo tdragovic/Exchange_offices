@@ -80,7 +80,8 @@
 	$result = $stmt->get_result();
 
 	foreach ($result as $key => $row) {
-		echo "Kupljenih paketa " . ($key+1) . " : " . $row['count'] . "<br>";
+		$packages[] = $row['count'];
+		// echo "Kupljenih paketa " . ($key+1) . " : " . $row['count'] . "<br>";
 	}
 
 	$stmt = $conn->prepare("SELECT exchange_office_package.start_date, avg(package_price) as avg, sum(package_price) as sum, min(package_price) as min, max(package_price) as max, count(exchange_office_package.package_id) as count FROM exchange_office_package INNER JOIN exchange_office ON exchange_office_package.exchange_office_id = exchange_office.exchange_office_id INNER JOIN package on exchange_office_package.package_id = package.package_id WHERE activation = ? GROUP BY MONTH(start_date)");
@@ -101,27 +102,46 @@
 
 	foreach($trs as $key => $col) {
 		$col = sprintf("<tr>
-		<td>%s</td>
-		<td>%0.2f</td>
-		<td>%s</td>
-		<td>%s</td>
-		<td>%s</td>
-		</tr>", $col[0], $col[1], $col[2], $col[3], $col[4]);
+					<td class='text-center months'>%s</td>
+					<td class='text-center avgs'>%0.2f</td>
+					<td class='text-center totals'>%s</td>
+					<td class='text-center max'>%s</td>
+					<td class='text-center min'>%s</td>
+				</tr>
+					", $col[0], $col[1], $col[2], $col[3], $col[4]);
 		$cols[] = $col;
 	}
 	
-	$table = sprintf("<table class='table table-striped'>
-		<th>Month</th>
-		<th>Average</th>
-		<th>Sum</th>
-		<th>Min</th>
-		<th>Max</th>
-		%s%s%s
+	$table = sprintf("<table class='table table-striped table-bordered mt-5'>
+			<thead>
+				<th class='text-center'>Mesec</th>
+				<th class='text-center'>Prosecna zarada po korisniku</th>
+				<th class='text-center'>Ukupna zarada</th>
+				<th class='text-center'>Najmanji paket kupljen</th>
+				<th class='text-center'>Najveci paket kupljen</th>
+			</thead>
+			<tbody>
+				%s%s%s
+			</tbody>
 	</table>", $cols[0], $cols[1], $cols[2]);
 
-	echo $table;
-
-	print('Trenutna zarada: ' . $current_income) . "<br>";
-	print('Prošlomesečna zarada: ' . $last_month) . "<br>";
-	print('Ukupna zarada: ' . $total_income) . "<br>";
+	
+	// print_r($packages);
+	// print('Trenutna zarada: ' . $current_income) . "<br>";
+	// print('Prošlomesečna zarada: ' . $last_month) . "<br>";
+	// print('Ukupna zarada: ' . $total_income) . "<br>";
 ?>
+<div id="main" class="container">
+	<div class="row mt-5 mx-auto justify-content-center" id='stat'>
+		<button id="table_chart" class="btn btn-dark text-warning">Tabelarni prikaz</button>
+		<button id="graph_chart" class="btn btn-muted">Graficki prikaz</button>
+	</div>
+	<div class="row">
+		<div class="container" id="stats_table" style='display: none;'>
+			<?php
+				echo $table;
+			?>
+		</div>
+		<div class="container-fluid text-center" id="chart_div"></div>
+	</div>
+</div>

@@ -55,7 +55,7 @@ padding-bottom:150px; /* this needs to be bigger than footer height*/
 }
 
 #xml_file{
-	display: none;	
+	display: block;	
 }
 #more_details1,#more_details2,#more_details3,#arrow3up{
 	display: none;

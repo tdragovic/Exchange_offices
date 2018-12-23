@@ -15,10 +15,9 @@
 				?>
 		</div>
 		<div id='xml_file_button' class='mt-5'>
-			<button type="button" id="xml" class="btn-dark text-warning btn" name="upload_xml">Učitaj XML</button>
 			<form id='xml_file' action='index.php?page=profile&id=<?php echo $exchange_office_id;?>&action=edit_currencylist' method="post" enctype="multipart/form-data">
 				<div class="file_choose mt-4">
-					<label for="xml_input">Učitaj XML</label>
+					<label for="xml_input" class='btn btn-dark text-warning'>Učitaj XML</label>
 					<input type="file" id='xml_input' name="xml_input" class='ml-6' style='display: none;'/>
 				</div>
 				<div class='file_button mt-4'>
@@ -44,7 +43,9 @@
 						$xml = simplexml_load_file($file['tmp_name']);
 
 						if($xml != '' && $file['type'] === 'text/xml'){
-				
+							if(isset($xml->Currencies)) {
+
+							
 							$ex_name = $xml->ExchangeOffice;
 							$date = $xml->Date;
 				
@@ -112,7 +113,10 @@
 										echo $t;
 									}
 								}
-						}	
+							}
+						} else {
+							echo "<tr><td>Format xml-a nije validan</td></tr>";
+						}
 					}else{
 						
 						$stmt = $conn->prepare("SELECT * FROM currency_list WHERE exchange_office_id=?");
