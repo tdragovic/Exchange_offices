@@ -133,7 +133,7 @@ $(document).ready(function() {
         var password = $('#reg_pass').val();
         var password_confirm = $('#reg_pass_confirm').val();
 
-        if(password.length < 5) {
+        if(password.length < 5 || password_confirm.length < 5) {
             $('#err3').html('Lozinka mora biti duža od 4 karaktera');
         } else {
             $('#err3').html('');

@@ -22,7 +22,8 @@ $titles = array(
 			'success' => 'Menjator',
 			'success_form' => 'Menjator',
 			'settings' => 'Menjator - Podesavanja',
-			'search_box' => 'Menjator'
+			'search_box' => 'Menjator',
+			'stats' => 'Menjator'
 
 		);
 if($_SESSION) {
@@ -179,6 +180,13 @@ if($_GET){
 					include('./modules/app/views/pages/notifications/error.php');
 				}
 				
+				break;
+			case 'stats' :
+				if($user == 'admin') {
+					include('./modules/app/views/pages/stats.php');
+				} else {
+					include('./modules/app/views/pages/notifications/error.php');
+				}
 				break;
 			default :
 				$map_header = array('TITLE' => 'error');

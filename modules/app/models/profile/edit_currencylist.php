@@ -39,8 +39,6 @@
 			$result = $stmt->get_result();
 			$list = $result->num_rows;
 
-			
-
 			if($sell==$buy && count($errors)==0){
 				foreach ($currencyid as $key => $value) {
 					

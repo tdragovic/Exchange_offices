@@ -1,5 +1,5 @@
 <?php
-	include "./modules/db/connection.php";   
+	  
 	$date = date('Y-m-d', time());
 	$months = array('Januar', 'Februar', 'Mart', 'April', 'Maj', 'Jun', 'Jul', 'Avgust', 'Septembar', 'Oktobar', 'Novembar', 'Decembar');
 	$stmt = $conn->prepare('SELECT * FROM exchange_office_package');
