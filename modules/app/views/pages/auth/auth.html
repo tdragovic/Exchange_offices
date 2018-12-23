@@ -1,22 +1,22 @@
 
 <div id="main" class="container">
     <form class="form text-center col-10 mx-auto" method="post" action="index.php?page=login">
-        <div class="form-group col-6 mx-auto my-5">
+        <div class="form-group col-6 mx-auto mt-5">
             <h2 class="text-center">Prijavi se</h2>
             <hr>
             <input type="text" class="form-control my-3" name="username" placeholder="Korisničko ime" autocomplete="off"
 			value='{{USERNAME}}' >
-            <input type="password" class="form-control my-3" name="password" placeholder="Lozinka"
+            <input type="password" class="form-control mt-3" name="password" placeholder="Lozinka"
             value='{{PASSWORD}}' >
         </div>
         <div id='errors' class='row text-center'>
-            <div class="input-group invalid-feedback mx-auto text-center justify-content-center mb-3">    
+            <div class="input-group invalid-feedback mx-auto text-center justify-content-center">    
                 {{ERRORS}}
             </div>  
         </div>
-        
+        <div id='errors' class='row justify-content-center my-3'>
             {{CAPTCHA}}
-        
+        </div>
         <input type="submit" class="btn btn-dark text-warning" name='login' value="Pošalji">
     </form>
 </div>

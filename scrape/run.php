@@ -20,6 +20,10 @@
         // $sql = "INSERT INTO all_time_currency (exchange_office_name, currency_label, sell_rate, avg_rate, buy_rate, date) VALUES $value";
         // $conn->query($sql);
 
+        $sql = "INSERT INTO all_time_currency (exchange_office_name, currency_label, sell_rate, avg_rate, buy_rate, date) VALUES $value";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
         if($key == 0) {
             $values = $value;
         } else {
@@ -27,8 +31,8 @@
         }
         #$value = array($eo_name, $cl, $sell, $avg, $buy_rate, $date);
     }
-    
-    $sql = "INSERT INTO all_time_currency (exchange_office_name, currency_label, sell_rate, avg_rate, buy_rate, date) VALUES $values";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
+    // print($values);
+    // $sql = "INSERT INTO all_time_currency (exchange_office_name, currency_label, sell_rate, avg_rate, buy_rate, date) VALUES $values";
+    // $stmt = $conn->prepare($sql);
+    // $stmt->execute();
 ?>

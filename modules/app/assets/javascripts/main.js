@@ -68,7 +68,7 @@ $(document).ready(function() {
         if(!pattern.test(text)) {
             $('#err1').html('E-mail adresa je nevažeća');
         } else if(text.indexOf('@') > -1) {
-            $('#err1').html('');
+            
             $.ajax({
                 url: './modules/app/models/auth/check_reg.php',
                 method: 'post',
@@ -78,6 +78,7 @@ $(document).ready(function() {
                     $('#err1').html(data);
                 }
             });
+            
         }
     });
 

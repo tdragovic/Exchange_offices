@@ -44,7 +44,7 @@
     $stmt = $conn->prepare('INSERT INTO exchange_office (user_id, activation) VALUES (?, ?)');
     $stmt->bind_param('dd', $user_id, $activate);
     $stmt->execute();
-
+    echo $user_id;
     $stmt = $conn->prepare('SELECT * FROM exchange_office WHERE user_id = ?');
     $stmt->bind_param('d', $user_id);
     $stmt->execute();
@@ -53,6 +53,7 @@
         $row = $result->fetch_assoc();
         $exchange_office_id = $row['exchange_office_id'];
     }
+    echo $exchange_office_id;
 
     // $stmt = $conn->prepare('INSERT INTO exchange_office_package (exchange_office_id, package_id, start_date, end_date) VALUES (?, ?, ?, ?)');
     // $stmt->bind_param('ddss', $exchange_office_id, $package_id, $date, $end_date);
