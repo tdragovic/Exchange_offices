@@ -4,7 +4,7 @@
 <body>
 	<div id='main' class='container text-center justify-content-center mx-auto'>
 		<form id='form1' method='POST'  action='index.php?page=profile&id=<?php echo $exchange_office_id;?>&action=edit_profile' class='col-12'>
-			<div class='form-row text-center justify-content-center mt-5'>
+			<div class='form-row text-center justify-content-center mt-3'>
 				<div class='col-2'></div>
 				<div class='form-group col-5 m-2 border'>
 					<div class='row m-2'>

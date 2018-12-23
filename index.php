@@ -70,22 +70,23 @@ if($_GET){
 				$exchange_office_name = $row['exchange_office_name'];
 			}
 		}
-		if(isset($_GET['action'])){
-			$action = $_GET['action'] ?? '';
-			if(($action!='edit_profile' && $action!='edit_currencylist')||
-				($action=='edit_profile' && $user!='admin')||
-				($action=='edit_currencylist' && $user!='user')){
-					include("./modules/app/views/pages/notifications/error.php");
-					include("./modules/app/views/inc/footer.html");
-					exit;
-			}
-		}
+		
 
 		foreach($titles as $key => $value){
 			if($page==$key){
 				$map_header = array('TITLE' => $value);
 				echo screen_print($header,$map_header);
 				echo screen_print_nav_bar($user,$username);
+			}
+		}
+		if(isset($_GET['action'])){
+			$action = $_GET['action'] ?? '';
+			if(($action!='edit_profile' && $action!='edit_currencylist')||
+				($action=='edit_profile' && $user=='anonymous')||
+				($action=='edit_currencylist' && $user!='user')){
+					include("./modules/app/views/pages/notifications/error.php");
+					include("./modules/app/views/inc/footer.html");
+					exit;
 			}
 		}
 		

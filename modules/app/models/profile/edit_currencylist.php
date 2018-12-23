@@ -4,22 +4,21 @@
 			foreach($_POST as $key => $value) {
 
     			if (strpos($key, 'label') === 0) {
-        			$label[] = $value;
+        			$label_post[] = $value;
     			}
     			if (strpos($key, 'sell_rate') === 0) {
-        			$sell_rate[] = str_replace(",", ".", $value);
+        			$sell_rate_post[] = str_replace(",", ".", $value);
     			}
     			if (strpos($key, 'buy_rate') === 0) {
-        			$buy_rate[] = str_replace(",", ".", $value);
+        			$buy_rate_post[] = str_replace(",", ".", $value);
     			}
+
     			
 			}
 			
-			$sell = count($sell_rate);
-			$buy = count($buy_rate);
-			
-
-			foreach($label as $key => $value){
+			$sell = count($sell_rate_post);
+			$buy = count($buy_rate_post);
+			foreach($label_post as $key => $value){
 				
 				$stmt = $conn->prepare("SELECT currency_id FROM currency WHERE currency_label = ?");
 				$stmt->bind_param('s',$value);
@@ -39,28 +38,28 @@
 			$result = $stmt->get_result();
 			$list = $result->num_rows;
 
-			if($sell==$buy && count($errors)==0){
+			if($sell==$buy){
 				foreach ($currencyid as $key => $value) {
 					
 					if($list>0){
-						$stmt = $conn->prepare("UPDATE currency_list SET sell_rate=?,buy_rate=?, `date` = ? WHERE exchange_office_id=? AND currency_id=?");
-						$stmt->bind_param('ddsdd',$sell_rate[$key],$buy_rate[$key], $date, $exchange_office_id,$value);
+						$stmt = $conn->prepare("UPDATE currency_list SET sell_rate=?, buy_rate=?, `date` = ? WHERE exchange_office_id=? AND currency_id=?");
+						$stmt->bind_param('ddsdd',$sell_rate_post[$key],$buy_rate_post[$key], $date, $exchange_office_id,$value);
 						$stmt->execute();
-
+						header("location:index.php?page=profile&id=$exchange_office_id");
 					}else{
-						if(($sell_rate[$key]!='')&&($buy_rate[$key]!='')&&($sell_rate[$key]!='00.0000')&&($buy_rate[$key]!='00.0000')&&($sell_rate[$key]!=0)&&($buy_rate[$key]!=0)){
+						if(($sell_rate_post[$key]!='')&&($buy_rate_post[$key]!='')&&($sell_rate_post[$key]!='00.0000')&&($buy_rate_post[$key]!='00.0000')&&($sell_rate_post[$key]!=0)&&($buy_rate_post[$key]!=0)){
 
 							$stmt = $conn->prepare("INSERT INTO currency_list(exchange_office_id, currency_id, sell_rate, buy_rate, `date`) VALUES (?, ?, ?, ?, $date)");
-							$stmt->bind_param('dddd',$exchange_office_id,$value,$sell_rate[$key],$buy_rate[$key]);
+							$stmt->bind_param('dddd',$exchange_office_id,$value,$sell_rate_post[$key],$buy_rate_post[$key]);
 							$stmt->execute();
-							
+							header("location:index.php?page=profile&id=$exchange_office_id");
 						}
 					}
-					header("location:index.php?page=profile&id=$get_id");
+					
 				}
 					
 			}
-		} if(isset($_POST['save_xml']) && $_POST){
+		} /*if(isset($_POST['save_xml']) && $_POST){
 
 			$file = $_FILES['xml_input'];
 			$xml = simplexml_load_file($file['tmp_name']);
@@ -124,6 +123,6 @@
 			}else{
 				echo "<script>alert('Nevalidan XML fajl!')</script>";
 			}
-		}
+		}*/
 	
  ?>

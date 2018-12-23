@@ -12,7 +12,7 @@
 						</thead>
 						<tbody>";
 						for($i = 0; $i < count($currency); $i++){
-								$diff[$i] = $buy_rate[$i] - $sell_rate[$i];
+								$diff[$i] = $sell_rate[$i] - $buy_rate[$i];
 								$currency_info = sprintf("
 									<tr>
 				   					<td><label id='name'>%s</label></td>

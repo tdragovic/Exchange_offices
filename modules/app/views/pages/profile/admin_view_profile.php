@@ -26,7 +26,7 @@
 					</div>
 				</div>
 				<div class='col-12 m-1 text-right pr-4'>
-						<a href='index.php?page=profile&id=$get_id&action=edit_profile'><input type='button' id='edit_profile' class='btn btn-dark text-warning btn'  value='Izmeni'><a>
+						<a href='index.php?page=profile&id=$exchange_office_id&action=edit_profile'><input type='button' id='edit_profile' class='btn btn-dark text-warning btn'  value='Izmeni'><a>
 					</div>
 				</div>",
 				$name, $location_str, $phone, $email);

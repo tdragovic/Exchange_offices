@@ -22,7 +22,7 @@
 					<input type="file" id='xml_input' name="xml_input" class='ml-6' style='display: none;'/>
 				</div>
 				<div class='file_button mt-4'>
-					<button type="submit" id="save_xml" class="btn-dark text-warning btn" name="save_xml">Sačuvaj</button>
+					<button type="submit" id="save_xml" class="btn-dark text-warning btn" name="save_xml">Upiši</button>
 				</div>
 			</form>
 		</div>
@@ -38,6 +38,83 @@
 				</thead>
 				<tbody>
 					<?php 
+					if(isset($_POST['save_xml']) && $_POST){
+
+						$file = $_FILES['xml_input'];
+						$xml = simplexml_load_file($file['tmp_name']);
+
+						if($xml != '' && $file['type'] === 'text/xml'){
+				
+							$ex_name = $xml->ExchangeOffice;
+							$date = $xml->Date;
+				
+							foreach ($xml->Currencies->Currency as $currency) {
+					
+								$sell = (string)($currency->sell);
+								$buy = (string)($currency->buy);
+								$middle = (string)($currency->middle);
+								$currency_label = (string)($currency->label);
+								$currency_name = (string)($currency->name);
+
+								$new_curr = array($currency_label, $currency_name, $buy, $middle, $sell);
+								$currencies[] = $new_curr;
+							}
+				
+							sort($currencies);
+							for($i = 0; $i < count($currencies); $i++) {
+								$labels[] = $currencies[$i][0];
+								$sells[] = $currencies[$i][4];
+								$buys[] = $currencies[$i][2];
+							}
+							$stmt = $conn->prepare('SELECT * FROM currency_list INNER JOIN currency ON currency_list.currency_id = currency.currency_id WHERE exchange_office_id = ? ORDER BY currency_label');
+							$stmt->bind_param('d', $exchange_office_id);
+							$stmt->execute();
+							$result = $stmt->get_result();
+
+							foreach($result as $key => $row) {
+					
+								for($i = 0; $i < count($labels); $i++) {
+									if($labels[$i] == $row['currency_label']) {
+										$curr_ids[] = $row['currency_id'];
+									}
+								}
+							}
+							foreach ($labels as $key => $value){
+								if(($sells[$key]!='')&&($buys[$key]!='')){
+									$d = (float)$sells[$key] - (float)$buys[$key];
+									$t = sprintf("<tr>
+
+										<td><label>%s</label><input type='hidden' name='label%d' value='%s'></td>
+										<td><input class='form-control text-center' type='text' name='sell_rate%d' value='%s'></td>
+										<td><input class='form-control text-center' type='text' name='buy_rate%d' value='%s'></td>
+										<td><input class='form-control text-center' type='text' readonly value='%s'></td>
+										</tr>", $value, $key, $value,  $key, $sells[$key],  $key, $buys[$key],$d);
+									echo $t;
+								}
+							}
+							$stmt = $conn->prepare("SELECT currency_label FROM currency");
+							$stmt->execute();
+							$label0 = $stmt->get_result();
+								
+								foreach ($label0 as $key => $value) {
+									$currency_list[] = $conn->real_escape_string($value['currency_label']);
+								}
+								if(count($currency_list)!=count($labels)){
+									$currency_label = array_diff($currency_list,$labels);
+									foreach ($currency_label as $key => $value){
+										
+										$t = sprintf("<tr>
+										<td><label>%s</label><input type='hidden' name='label%d' value='%s'></td>
+										<td><input  class='form-control text-center' type='text' name='sell_rate%d' value='0'></td>
+										<td><input  class='form-control text-center' type='text' name='buy_rate%d' value='0'></td>
+										<td><input  class='form-control text-center' type='text' readonly placeholder='0'></td>
+										</tr>", $value, $key, $value,  $key,  $key);
+										echo $t;
+									}
+								}
+						}	
+					}else{
+						
 						$stmt = $conn->prepare("SELECT * FROM currency_list WHERE exchange_office_id=?");
 						$stmt->bind_param('d',$exchange_office_id);
 						$stmt->execute();
@@ -49,13 +126,15 @@
 							$sell_rate[] = $conn->real_escape_string($value['sell_rate']);
 							$buy_rate[] = $conn->real_escape_string($value['buy_rate']);
 							$diff[] = $conn->real_escape_string($value['diff_24h']);
-							$label[] = getCurrencyInfo($currency_id);
+							$label_view[] = getCurrencyInfo($currency_id);
 							
 						}
+
 						if($list>0){
-							foreach ($label as $key => $value){
+							
+							foreach ($label_view as $key => $value){
 								if(($sell_rate[$key]!='')&&($buy_rate[$key]!='')){
-									$d = $buy_rate[$key] - $sell_rate[$key];
+									$d = $sell_rate[$key] - $buy_rate[$key];
 									$t = sprintf("<tr>
 
 										<td><label>%s</label><input type='hidden' name='label%d' value='%s'></td>
@@ -73,8 +152,8 @@
 								foreach ($labels as $key => $value) {
 									$currency_list[] = $conn->real_escape_string($value['currency_label']);
 								}
-								if(count($currency_list)!=count($label)){
-									$currency_label = array_diff($currency_list,$label);
+								if(count($currency_list)!=count($label_view)){
+									$currency_label = array_diff($currency_list,$label_view);
 									foreach ($currency_label as $key => $value){
 										
 										$t = sprintf("<tr>
@@ -90,7 +169,6 @@
 									
 							
 						}else{
-
 							$stmt = $conn->prepare("SELECT currency_label FROM currency");
 							$stmt->execute();
 							$labels = $stmt->get_result();
@@ -109,7 +187,8 @@
 								echo $t;
 									
 							}
-						}		
+						}
+					}		
 					?>
 				</tbody>
 			</table>
