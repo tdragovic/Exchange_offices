@@ -64,6 +64,16 @@
 			}
 		}
 	}
+	$act = 1;
+	$stmt = $conn->prepare('SELECT * FROM exchange_office_package INNER JOIN exchange_office ON exchange_office_package.exchange_office_id = exchange_office.exchange_office_id INNER JOIN package on exchange_office_package.package_id = package.package_id WHERE activation = ?');
+	$stmt->bind_param('d', $act);
+	$stmt->execute();
+	$result = $stmt->get_result();
+
+	foreach ($result as $key => $row) {
+		
+	}
+
 	print('Trenutna zarada: ' . $current_income) . "<br>";
 	print('Prošlomesečna zarada: ' . $last_month) . "<br>";
 	print('Ukupna zarada: ' . $total_income) . "<br>";

@@ -59,7 +59,20 @@ $(document).ready(function() {
         }
     });
     
-    
+    $("#reg_user_mail").keyup(function(e) {
+        var text = $(this).val();
+        if(text.length > 5) {
+            $.ajax({
+                url: './modules/app/models/auth/check_reg.php',
+                method: 'post',
+                data: {email: text},
+                dataType: 'text',
+                success: function(data) {
+                    $('#err1').html(data);
+                }
+            });
+        }
+    });
     
     $('#reg_user_mail').focusout(function(e) {
         var text = $(this).val();
@@ -79,6 +92,21 @@ $(document).ready(function() {
                 }
             });
             
+        }
+    });
+
+    $("#reg_user_name").keyup(function(e) {
+        var text = $(this).val();
+        if(text.length > 5) {
+            $.ajax({
+                url: './modules/app/models/auth/check_reg.php',
+                method: 'post',
+                data: {username: text},
+                dataType: 'text',
+                success: function(data) {
+                    $('#err2').html(data);
+                }
+            });
         }
     });
 
