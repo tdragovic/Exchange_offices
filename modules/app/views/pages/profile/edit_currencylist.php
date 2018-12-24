@@ -17,14 +17,23 @@
 		<div id='xml_file_button' class='mt-5'>
 			<form id='xml_file' action='index.php?page=profile&id=<?php echo $exchange_office_id;?>&action=edit_currencylist' method="post" enctype="multipart/form-data">
 				<div class="file_choose mt-4">
-					<label for="xml_input" class='btn btn-dark text-warning'>Učitaj XML</label>
+					<label for="xml_input" id='xml_in' class="btn-dark text-warning btn">Učitaj XML</label>
 					<input type="file" id='xml_input' name="xml_input" class='ml-6' style='display: none;'/>
 				</div>
 				<div class='file_button mt-4'>
-					<button type="submit" id="save_xml" class="btn-dark text-warning btn" name="save_xml">Upiši</button>
+					<div id='success_xml' class='m-3'>Fajl uspešno učitan <i class="fa fa-check" style='color:#ffc107;' aria-hidden="true"></i></div>
+					<button type="submit" id="save_xml" class="btn-dark text-warning btn " name="save_xml">Upiši</button>
 				</div>
 			</form>
+			<div id='show_desc' class='m-2'>Uputstvo!</div>
+			<form id='description' method='GET' action='' class='col-8 border text-center justify-content-center mx-auto'>
+				<p>XML fajl ucitaćete klikom na dugme "Učitaj XML". Ukoliko je fajl validan i u formatu koji
+						odgovara našoj aplikaciji biće uspešno učitan. Nakon odabira fajla klikom na dugme "Upiši" 
+						vaši podaci će automacki biti upisani u Kursnu listu ispod. Ukoliko ste sigurni da su podaci ispravni sačuvajte izmenu klikom na dugme "Sačuvaj", na dnu stranice. Primer formata koji naša aplikacija podržava preuzmite klikom na link<a href='index.php?page=profile&id=<?php echo $exchange_office_id;?>&action=edit_currencylist&file=Currency_list_example.xml' id='xml_link'> XML_Menjator</a></p>
+			</form>
+			
 		</div>
+		<div class='justify-content-center h2 m-5'>Kursna lista</div>
 		<form id='currency_form1' method='POST' action='index.php?page=profile&id=<?php echo $exchange_office_id;?>&action=edit_currencylist'>
 			<table class='table table-striped table-bordered m-4'>
 				<thead>
@@ -40,10 +49,10 @@
 					if(isset($_POST['save_xml']) && $_POST){
 
 						$file = $_FILES['xml_input'];
-						$xml = simplexml_load_file($file['tmp_name']);
+						if($file['type'] === 'text/xml'){
+							$xml = simplexml_load_file($file['tmp_name']);
+							if($xml != '' && isset($xml->Currencies->Currency)){
 
-						if($xml != '' && $file['type'] === 'text/xml'){
-							if(isset($xml->Currencies)) {
 
 							
 							$ex_name = $xml->ExchangeOffice;
@@ -113,9 +122,11 @@
 										echo $t;
 									}
 								}
+							}else{
+								echo "<tr><td class='text-center justify-content-center mx-auto'>Format xml-a nije validan! Pročitajte uputstvo!</td></tr>";
 							}
 						} else {
-							echo "<tr><td>Format xml-a nije validan</td></tr>";
+							echo "<tr><td class='text-center justify-content-center mx-auto'>Format xml-a nije validan! Pročitajte uputstvo!</td></tr>";
 						}
 					}else{
 						

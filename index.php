@@ -71,7 +71,19 @@ if($_GET){
 			}
 		}
 		
-
+		if(isset($_GET['file'])){
+			if(!empty($_GET['file'])){
+				$filename = basename($_GET['file']);
+				header('Content-Type: application/octet-stream');
+    			header("Content-Disposition: attachment; filename='$filename'");
+    			header('Expires: 0');
+    			header('Cache-Control: must-revalidate');
+    			header('Pragma: public');
+    			header('Content-Length: ' . filesize($filename));
+    			readfile('./'.$filename);
+    			exit;
+			}
+		}
 		foreach($titles as $key => $value){
 			if($page==$key){
 				$map_header = array('TITLE' => $value);

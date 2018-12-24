@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <CurrencyList>
+        <ExchangeOffice>Naziv menjačnice</ExchangeOffice>
+        <Date>2018-12-12</Date>
+        <Currencies>
+            <!--Blok "<Currency>"****"</Currency>" ponoviti onoliko puta koliko valuta poseduje vasa menjacnica-->
+            <Currency>
+                <name>Naziv valute</name>
+                <label>Oznaka valute</label>
+                <buy>00.0000</buy>
+                <middle>00.0000</middle>
+                <sell>00.0000</sell>
+            </Currency>
+            <Currency>
+                <name>Naziv valute</name>
+                <label>Oznaka valute</label>
+                <buy>00.0000</buy>
+                <middle>00.0000</middle>
+                <sell>00.0000</sell>
+            </Currency>
+            <Currency>
+               <name>Naziv valute</name>
+                <label>Oznaka valute</label>
+                <buy>00.0000</buy>
+                <middle>00.0000</middle>
+                <sell>00.0000</sell>
+            </Currency>
+            <Currency>
+               <name>Naziv valute</name>
+                <label>Oznaka valute</label>
+                <buy>00.0000</buy>
+                <middle>00.0000</middle>
+                <sell>00.0000</sell>
+            </Currency>
+            <Currency>
+                <name>Naziv valute</name>
+                <label>Oznaka valute</label>
+                <buy>00.0000</buy>
+                <middle>00.0000</middle>
+                <sell>00.0000</sell>
+            </Currency>
+        </Currencies>
+    </CurrencyList>
+  

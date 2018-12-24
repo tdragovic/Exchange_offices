@@ -68,13 +68,17 @@ $(document).ready(function(){
     	
   });
 
-  $("#xml").click(function(){
-      $("#xml_file").show("slow");
-      $("#xml").hide("slow");
+ $("#show_desc").click(function(){
+    $("#description").slideToggle("slow");
+      
   });
-  $("#save_xml").click(function(){
-      $("#xml_file").hide("slow");
-      $("#xml").show("slow");
+  $(document).change('#xml_input', function(){
+      
+    if($('#xml_input').val() != '') {
+      $('.file_button').css('display', 'block');
+      $('.file_choose').css('display', 'none');
+    } 
+      
   });
 
 });

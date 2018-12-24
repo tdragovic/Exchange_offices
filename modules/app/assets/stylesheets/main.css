@@ -54,11 +54,39 @@ min-height: 90vh;
 padding-bottom:150px; /* this needs to be bigger than footer height*/
 }
 
-#xml_file{
-	display: block;	
+#show_desc{
+	color:#343a40;
+	text-decoration: underline;
+
 }
+#show_desc:hover{
+	color:#ffc107;
+}
+#description{
+	display:none;
+	font-weight: bold;
+	color:#343a40;
+}
+#xml_link{
+	color:#ffc107;
+	text-decoration: underline;
+}
+#xml_link:hover{
+	color:#343a40;
+}
+#success_xml{
+	font-weight: bold;
+	color:#343a40;
+}
+
 #more_details1,#more_details2,#more_details3,#arrow3up{
 	display: none;
+}
+.file_button{
+	display:none;
+}
+.file_choose{
+	display: block;
 }
 /*Progress bar registration*/
 .arrow-steps .step {
