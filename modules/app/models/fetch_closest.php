@@ -138,7 +138,7 @@
                 <td class='align-middle'>%s</td>
                 <td class='align-middle'>%s</td>
                 <td class='align-middle'>%s</td>
-                <td><a href='http://maps.google.com/maps?q=loc:%f,%f' class='badge badge-dark' style='font-size: 0.9rem;' target='_blank'>Detaljniji pogled</a></td>
+                <td><a href='http://maps.google.com/maps?q=loc:%f,%f' class='badge badge-dark' style='font-size: 0.9rem;' target='_blank'>Lokacija na mapi</a></td>
             </tr>";
     $form = "";
 
