@@ -12,7 +12,7 @@
 		$informations= sprintf("
 			<div id='info' class='info border mx-auto mt-2 p-2' >
 				<div class='row pl-2'>
-					<div class='col-12 text-left h2 '>%s</div>
+					<div class='col-12 text-left h2 eo_name'>%s</div>
 				</div>
 				<div class='row  pr-4'>
 					<div class='col-12 text-right'>

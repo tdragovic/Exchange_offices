@@ -133,8 +133,8 @@
 ?>
 <div id="main" class="container">
 	<div class="row mt-5 mx-auto justify-content-center" id='stat'>
-		<button id="table_chart" class="btn btn-dark text-warning">Tabelarni prikaz</button>
-		<button id="graph_chart" class="btn btn-muted">Graficki prikaz</button>
+		<button id="graph_chart" class="btn btn-dark text-warning mx-2">Graficki prikaz</button>
+		<button id="table_chart" class="btn btn-muted">Tabelarni prikaz</button>
 	</div>
 	<div class="row">
 		<div class="container" id="stats_table" style='display: none;'>

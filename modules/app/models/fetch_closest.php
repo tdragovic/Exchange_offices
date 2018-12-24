@@ -5,8 +5,8 @@
     $lat = $lat1 = $_POST['lat'];
     $lng = $lng1 =$_POST['lng'];
     $currencies = array(1,2,3,4,5);
-    $lat = $lat1 = "44.8006737";
-    $lng = $lng1 = "20.491732";
+    // $lat = $lat1 = "44.8006737";
+    // $lng = $lng1 = "20.491732";
     $api = 'AIzaSyBJBn7elZA5meKmAECWwDy3jT9480ULzB4';
     $start = "$lat,$lng";
     $destinations = ''; # '44.8175329,20.4179972';
@@ -138,13 +138,13 @@
                 <td class='align-middle'>%s</td>
                 <td class='align-middle'>%s</td>
                 <td class='align-middle'>%s</td>
-                <td><a href='index.php?page=profile&id=%s' class='badge badge-dark' style='font-size: 0.9rem;'>Detaljniji pogled</a></td>
+                <td><a href='http://maps.google.com/maps?q=loc:%f,%f' class='badge badge-dark' style='font-size: 0.9rem;' target='_blank'>Detaljniji pogled</a></td>
             </tr>";
     $form = "";
 
     for($i = 0; $i < 5; $i++) {
 
-        $form .= sprintf($table, $closestDb[$i][2], $closestDb[$i][3], $rates[$i][0], $rates[$i][1], $closest_5_driving[$i][1], $closest_5_driving[$i][2], $closest_5_walking[$i][1], $closest_5_walking[$i][2], $ids[$i]);
+        $form .= sprintf($table, $closestDb[$i][2], $closestDb[$i][3], $rates[$i][0], $rates[$i][1], $closest_5_driving[$i][1], $closest_5_driving[$i][2], $closest_5_walking[$i][1], $closest_5_walking[$i][2], $closestDb[$i][4], $closestDb[$i][5]);
     }
     $output = sprintf($format, $form);
     echo $output;

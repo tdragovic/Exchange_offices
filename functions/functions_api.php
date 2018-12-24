@@ -63,10 +63,25 @@
             $exchange_office_ids = $result['exchange_office_id'];
             $exchange_office_name = $result['exchange_office_name'];
             $exchange_office_location = $result['exchange_office_location'];
+            $eo_lat = $result['exchange_office_lat'];
+            $eo_lng = $result['exchange_office_lng'];
 
-            $location = array($location_id, $exchange_office_ids, $exchange_office_name, $exchange_office_location);
+            $location = array($location_id, $exchange_office_ids, $exchange_office_name, $exchange_office_location, $eo_lat, $eo_lng);
             $locations[] = $location;
         }
         return $locations;
+    }
+
+    function directions($origins, $addr, $conn) {
+        $stmt = $conn->prepare("SELECT location_id, exchange_office_lat, exchange_office_lng FROM exchange_office_location WHERE exchange_office_location like ?");
+        $stmt->bind_param('s', ('$'.$addr));
+        $stmt->execute();
+        $result = $stmt->get_result();
+        foreach ($result as $key => $row) {
+            $eo_lat = $row['exchange_office_lat'];
+            $eo_lng = $row['exchange_office_lng'];
+        }
+        $destinations = $lat . "," . $lng;
+        $file = file_get_contents("https://maps.googleapis.com/maps/api/directions/json?origins=$origins&destinations=$destinations&key=$api");
     }
 ?>

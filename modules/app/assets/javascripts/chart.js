@@ -2,23 +2,29 @@
 // google.charts.setOnLoadCallback(drawMaterial);
 
 $(document).ready(function() {
+    $('.active').addClass('btn-dark text-warning');
+
     $('#table_chart').hover(function() {
-        $(this).addClass(' btn-dark text-warning');
         $('#graph_chart').removeClass('btn-dark text-warning text-muted');
-        $('#graph_chart').addClass('btn-muted')
+        $('#graph_chart').addClass('btn-muted');
+        $(this).addClass(' btn-dark text-warning');
     });
 
     $('#graph_chart').hover(function() {
-        $(this).addClass(' btn-dark text-warning');
         $('#table_chart').removeClass('btn-dark text-warning text-muted');
-        $('#table_chart').addClass('btn-muted')
+        $('#table_chart').addClass('btn-muted');
+        $(this).addClass(' btn-dark text-warning');
     });
 
     $('#graph_chart').on('click', function() {
+        $(this).addClass('active');
+        $('#table_chart').removeClass('active');
         $('#stats_table').hide();
         $('#chart_div').show();
     });
     $('#table_chart').on('click', function() {
+        $(this).addClass('active');
+        $('#graph_chart').removeClass('active');
         $('#stats_table').show();
         $('#chart_div').hide();
     });
@@ -69,6 +75,8 @@ function drawMorris($array) {
         { mesec: months[2], avg: avg[2], total: total[2], min: min[2], max: max[2] },],
         xkey: 'mesec',
         ykeys: ['avg', 'total', 'min', 'max'],
+        resize: true,
+        hideHover: true,
         labels: ['Prosečna zarada po korisniku', 'Ukupna zarada', 'Najmanji paket kupljen', 'Najveci paket kupljen']
         });
         

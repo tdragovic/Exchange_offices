@@ -46,8 +46,8 @@
 			// include("./modules/app/views/pages/profile/chart.php");
 			
 		?>
-	<div id="chart_prof" class='text-center'></div>
-    <script type="text/javascript" src="./modules/app/assets/javascripts/prof_chart.js"></script>
+		
+		<div id="chart_prof" class='text-center'></div>
 
 	</div>
 	
