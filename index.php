@@ -2,6 +2,7 @@
 session_start();
 include("./modules/db/connection.php");
 include("./functions/functions.php"); 
+include("./functions/functions_db.php");
 include("./functions/functions_reg.php");
 include("./functions/functions_api.php");
 
@@ -23,8 +24,8 @@ $titles = array(
 			'success_form' => 'Menjator',
 			'settings' => 'Menjator - Podesavanja',
 			'search_box' => 'Menjator',
-			'stats' => 'Menjator'
-
+			'stats' => 'Menjator',
+			'delete' => 'Menjator'
 		);
 if($_SESSION) {
 	if(isset($_SESSION['logged']) && $_SESSION['logged']) {
@@ -197,6 +198,13 @@ if($_GET){
 			case 'stats' :
 				if($user == 'admin') {
 					include('./modules/app/views/pages/stats.php');
+				} else {
+					include('./modules/app/views/pages/notifications/error.php');
+				}
+				break;
+			case 'delete' :
+				if($user == 'admin') {
+					include('./modules/app/models/auth/delete_user.php');
 				} else {
 					include('./modules/app/views/pages/notifications/error.php');
 				}

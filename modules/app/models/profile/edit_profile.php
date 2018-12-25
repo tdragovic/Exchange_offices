@@ -1,6 +1,6 @@
 <?php 
 	if(isset($_POST['save_profile'])) {
-		
+							$location = array();
 							$name_office = trim($_POST['name_office']);
 							$phone = '+381'. trim($_POST['phone0']);
 							$email = trim($_POST['email0']);

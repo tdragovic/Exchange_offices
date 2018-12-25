@@ -21,8 +21,12 @@
 					if(sessionCheckUser($username,$get_id)){
 						include("./modules/app/views/pages/profile/admin_view_profile.php");
 						echo "<div class='justify-content-center h2 m-5'>Kursna lista</div>";
-						if($list>0 && $value['sell_rate'] != 0.0000){
-							include("./modules/app/views/pages/profile/user_view_currencylist.php");
+						if($list>0){
+							if(!checkList($res)) {
+								include("./modules/app/views/pages/profile/user_view_currencylist.php");
+							} else {
+								include("./modules/app/views/pages/profile/user_example_view_currencylist.php");
+							}
 						}else{
 							include("./modules/app/views/pages/profile/user_example_view_currencylist.php");
 						}

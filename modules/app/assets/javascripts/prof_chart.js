@@ -1,4 +1,4 @@
-google.charts.load('current', {'packages':['corechart']})
+// google.charts.load('current', {'packages':['corechart']})
 $(document).ready(function() {
     if($('.eo_name')) {
         var id = $('.eo_name').text();
@@ -31,7 +31,7 @@ $(document).ready(function() {
                 lineColors: ['blue', 'red', 'black'],
                 postUnits: ' RSD',
                 ykeys: ['Kupovni_kurs', 'Srednji_kurs', 'Prodajni_kurs'],
-                labels: ['Kupovni_kurs', 'Srednji_kurs', 'Prodajni_kurs']
+                labels: ['Kupovni kurs', 'Srednji kurs', 'Prodajni kurs']
             });
         }
     });

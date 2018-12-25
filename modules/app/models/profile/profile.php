@@ -32,14 +32,22 @@
 			$res = $stmt->get_result();
 			$list = $res->num_rows;
 			
-			foreach ($res as $key => $value) {
-				if($value['sell_rate'] != '0.0000') {
-					$currency_id = $conn->real_escape_string($value['currency_id']);
-					$sell_rate[] = $conn->real_escape_string($value['sell_rate']);
-					$buy_rate[] = $conn->real_escape_string($value['buy_rate']);
-					$diff[] = $conn->real_escape_string($value['diff_24h']);
-					$currency[] = getCurrencyInfo($currency_id);
-				}
-				
+			foreach($res as $key => $row) {
+				$currency_id = $conn->real_escape_string($row['currency_id']);
+				$sell_rate[] = $conn->real_escape_string($row['sell_rate']);
+				$buy_rate[] = $conn->real_escape_string($row['buy_rate']);
+				$diff[] = $conn->real_escape_string($row['diff_24h']);
+				$currency_label[] = getCurrencyInfo($currency_id);
 			}
+
+			// foreach ($res as $key => $value) {
+			// 	if($value['sell_rate'] != '0.0000') {
+			// 		$currency_id = $conn->real_escape_string($value['currency_id']);
+			// 		$sell_rate[] = $conn->real_escape_string($value['sell_rate']);
+			// 		$buy_rate[] = $conn->real_escape_string($value['buy_rate']);
+			// 		$diff[] = $conn->real_escape_string($value['diff_24h']);
+			// 		$currency_label[] = getCurrencyInfo($currency_id);
+			// 	}
+				
+			// }
 ?>

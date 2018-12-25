@@ -2,7 +2,7 @@
 
     $api = "AIzaSyBJBn7elZA5meKmAECWwDy3jT9480ULzB4";
 
-    function insertCoordinates(&$api, $addr, &$conn) {
+    function insertCoordinates($api, $addr, $conn) {
         $addr_changed = str_replace(' ', '+', $addr);
         $file = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=$addr_changed&key=$api");
         $json = json_decode($file);
@@ -15,7 +15,7 @@
         $stmt->execute();   
     }
 
-    function calcDrivingMulti($origins, $destinations, $api, &$conn) {
+    function calcDrivingMulti($origins, $destinations, $api, $conn) {
         $file = file_get_contents("https://maps.googleapis.com/maps/api/distancematrix/json?origins=$origins&destinations=$destinations&key=$api");
         $json = json_decode($file);
 
@@ -30,7 +30,7 @@
         }
         return $distance;
     }
-    function calcWalkingMulti($origins, $destinations, $api, &$conn) {
+    function calcWalkingMulti($origins, $destinations, $api, $conn) {
         $file = file_get_contents("https://maps.googleapis.com/maps/api/distancematrix/json?origins=$origins&destinations=$destinations&key=$api&mode=walking");
         $json = json_decode($file);
 
@@ -46,8 +46,7 @@
         return $distance;
     }
 
-    function getClosestDb($lat, $lng, &$conn) {
-        $nearby = array();
+    function getClosestDb($lat, $lng, $conn) {
         $stmt = $conn->prepare("SELECT location_id, exchange_office_location.exchange_office_id, exchange_office_name, exchange_office_location, exchange_office_lat, exchange_office_lng, 6371 * 2 * ASIN(SQRT( POWER(SIN((? - exchange_office_lat) *  pi()/180 / 2), 2) +COS(? * pi()/180)
         * COS(exchange_office_lat * pi()/180) * POWER(SIN((? - exchange_office_lng) * pi()/180 / 2), 2) )) AS distance
        FROM exchange_office_location
@@ -81,7 +80,7 @@
             $eo_lat = $row['exchange_office_lat'];
             $eo_lng = $row['exchange_office_lng'];
         }
-        $destinations = $lat . "," . $lng;
+        $destinations = $eo_lat . "," . $eo_lng;
         $file = file_get_contents("https://maps.googleapis.com/maps/api/directions/json?origins=$origins&destinations=$destinations&key=$api");
     }
 ?>

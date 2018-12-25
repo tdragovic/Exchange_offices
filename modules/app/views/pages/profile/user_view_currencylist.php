@@ -1,6 +1,16 @@
-<?php  
-	if(count($currency) == count($sell_rate)){
-			echo "<form id='currency_form2' method='POST' action='form.php'>
+<?php 
+	// $stmt = $conn->prepare("SELECT * FROM currency_list WHERE sell_rate != 0.0000 AND exchange_office_id = ?");
+	// $stmt->bind_param('d', $exchange_office_id);
+	// $stmt->execute();
+	// $res = $stmt->get_result();
+	// $currency = array();
+	// foreach($res as $key => $value) {
+	// 	$currency[] = $value['currency_id'];
+	// }
+	// print_r($currency);
+
+	if(count($currency_label) == count($sell_rate)){
+			echo "
 					<table class='table table-striped table-bordered'>
 						<thead>
 							<tr>
@@ -11,17 +21,25 @@
 							</tr>
 						</thead>
 						<tbody>";
-						for($i = 0; $i < count($currency); $i++){
-								$diff[$i] = $sell_rate[$i] - $buy_rate[$i];
+						$counter = 0;
+						for($i = 0; $i < count($currency_label); $i++){
+							$diff[$i] = abs($sell_rate[$i] - $buy_rate[$i]);
+								
+							if($sell_rate[$i] != 0) {
 								$currency_info = sprintf("
 									<tr>
 				   					<td><label id='name'>%s</label></td>
 									<td>%s</td>
 									<td>%s</td>
 									<td>%s</td>
-									</tr>", $currency[$i], $sell_rate[$i], $buy_rate[$i], $diff[$i]);
+									</tr>", $currency_label[$i], $buy_rate[$i], $sell_rate[$i], $diff[$i]);
+
 								echo $currency_info;
-							
+							} else {
+								$counter++;
+							}
+						} if($counter == 21) {
+							echo "<tr><td colspan = '4' >Kursna lista je trenutno prazna</td></tr>";
 						}
 						
 						echo "</tbody>

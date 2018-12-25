@@ -90,6 +90,7 @@
 								}
 							}
 							foreach ($labels as $key => $value){
+								
 								if(($sells[$key]!='')&&($buys[$key]!='')){
 									$d = (float)$sells[$key] - (float)$buys[$key];
 									$t = sprintf("<tr>
@@ -97,36 +98,18 @@
 										<td><label>%s</label><input type='hidden' name='label%d' value='%s'></td>
 										<td><input class='form-control text-center' type='text' name='sell_rate%d' value='%s'></td>
 										<td><input class='form-control text-center' type='text' name='buy_rate%d' value='%s'></td>
-										<td><input class='form-control text-center' type='text' readonly value='%s'></td>
+										<td><input class='form-control text-center' type='text' readonly value='%0.2f'></td>
 										</tr>", $value, $key, $value,  $key, $sells[$key],  $key, $buys[$key],$d);
 									echo $t;
 								}
 							}
-							$stmt = $conn->prepare("SELECT currency_label FROM currency");
-							$stmt->execute();
-							$label0 = $stmt->get_result();
-								
-								foreach ($label0 as $key => $value) {
-									$currency_list[] = $conn->real_escape_string($value['currency_label']);
-								}
-								if(count($currency_list)!=count($labels)){
-									$currency_label = array_diff($currency_list,$labels);
-									foreach ($currency_label as $key => $value){
-										
-										$t = sprintf("<tr>
-										<td><label>%s</label><input type='hidden' name='label%d' value='%s'></td>
-										<td><input  class='form-control text-center' type='text' name='sell_rate%d' value='0'></td>
-										<td><input  class='form-control text-center' type='text' name='buy_rate%d' value='0'></td>
-										<td><input  class='form-control text-center' type='text' readonly placeholder='0'></td>
-										</tr>", $value, $key, $value,  $key,  $key);
-										echo $t;
-									}
-								}
+							
 							}else{
-								echo "<tr><td class='text-center justify-content-center mx-auto'>Format xml-a nije validan! Pročitajte uputstvo!</td></tr>";
+								echo "<tr><td colspan='4' class='text-center justify-content-center mx-auto'>Format xml-a nije validan! Pročitajte uputstvo!</td></tr>";
 							}
 						} else {
-							echo "<tr><td class='text-center justify-content-center mx-auto'>Format xml-a nije validan! Pročitajte uputstvo!</td></tr>";
+							echo "<tr><td colspan='4' class='text-center justify-content-center mx-auto'>Format xml-a nije validan! Pročitajte uputstvo!</td></tr>";
+							exit();
 						}
 					}else{
 						
@@ -148,6 +131,7 @@
 						if($list>0){
 							
 							foreach ($label_view as $key => $value){
+
 								if(($sell_rate[$key]!='')&&($buy_rate[$key]!='')){
 									$d = $sell_rate[$key] - $buy_rate[$key];
 									$t = sprintf("<tr>
@@ -183,25 +167,26 @@
 								
 									
 							
-						}else{
-							$stmt = $conn->prepare("SELECT currency_label FROM currency");
-							$stmt->execute();
-							$labels = $stmt->get_result();
-					
-							foreach ($labels as $key => $value) {
-								$currency_label[] = $conn->real_escape_string($value['currency_label']);
-							}
-							foreach ($currency_label as $key => $value){
-								
-								$t = sprintf("<tr>
-									<td><label>%s</label><input type='hidden' name='label%d' value='%s'></td>
-									<td><input  class='form-control text-center' type='text' name='sell_rate%d' value='0'></td>
-									<td><input  class='form-control text-center' type='text' name='buy_rate%d' value='0'></td>
-									<td><input  class='form-control text-center' type='text' readonly placeholder='0'></td>
-									</tr>", $value, $key, $value,  $key,  $key);
-								echo $t;
+							// }else{
+							// 	$stmt = $conn->prepare("SELECT currency_label FROM currency");
+							// 	$stmt->execute();
+							// 	$labels = $stmt->get_result();
+						
+							// 	foreach ($labels as $key => $value) {
+							// 		$currency_label[] = $conn->real_escape_string($value['currency_label']);
+							// 	}
+							// 	foreach ($currency_label as $key => $value){
 									
-							}
+							// 		$t = sprintf("<tr>
+							// 			<td><label>%s</label><input type='hidden' name='label%d' value='%s'></td>
+							// 			<td><input  class='form-control text-center' type='text' name='sell_rate%d' value='0'></td>
+							// 			<td><input  class='form-control text-center' type='text' name='buy_rate%d' value='0'></td>
+							// 			<td><input  class='form-control text-center' type='text' readonly placeholder='0'></td>
+							// 			</tr>", $value, $key, $value,  $key,  $key);
+							// 		echo $t;
+										
+							// 	}
+							// }
 						}
 					}		
 					?>

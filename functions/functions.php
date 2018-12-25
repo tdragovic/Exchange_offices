@@ -140,7 +140,7 @@
 	function getRate($exchange_office_id, $rate) {
         global $conn;
 
-        $sql = "SELECT sell_rate, avg_rate, buy_rate FROM currency_list WHERE exchange_office_id = '$exchange_office_id' AND currency_id = '1'";
+        $sql = "SELECT currency_list.sell_rate, currency_list.avg_rate, currency_list.buy_rate FROM currency_list INNER JOIN exchange_office ON currency_list.exchange_office_id = exchange_office.exchange_office_id WHERE currency_list.exchange_office_id = '$exchange_office_id' AND currency_id = '1' AND activation = '1'";
         $res = $conn->query($sql);
         foreach($res as $key => $value) {
             if(isset($value['sell_rate']) && isset($value['avg_rate']) && isset($value['buy_rate'])) {
@@ -263,6 +263,15 @@
 			
 			return $errors;
 		}
+	}
+
+	function checkList($result) {
+		foreach($result as $key => $value) {
+			if($value == 0.0000) {
+				return true;
+			} 
+		}
+		return false;
 	}
 	
 ?>

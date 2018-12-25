@@ -25,7 +25,7 @@
             $json = json_decode($response);
             if($json->success) {
 
-                $stmt = $conn->prepare("SELECT username, password, ex.exchange_office_id, ex.exchange_office_name, exchange_office_phone, exchange_office_email, exchange_office_pib, exchange_office_jmb FROM user LEFT JOIN exchange_office ex ON ex.user_id = user.user_id WHERE username = ? AND password = ?");
+                $stmt = $conn->prepare("SELECT username, password, ex.exchange_office_id, ex.exchange_office_name, exchange_office_phone, exchange_office_email, exchange_office_pib, exchange_office_jmb FROM user LEFT JOIN exchange_office ex ON ex.user_id = user.user_id WHERE username = ? AND password = ? AND activation = '1'");
                 $stmt->bind_param('ss', $username, $password);
                 $stmt->execute();
                 $res = $stmt->get_result();
@@ -46,7 +46,7 @@
                     }
                 
                 }else {
-                    $errors[] = "Neispravni podaci!";
+                    $errors[] = "Nevalidan nalog!";
                 }
             } else {
                 $errors[] = 'Neispravni podaci!';

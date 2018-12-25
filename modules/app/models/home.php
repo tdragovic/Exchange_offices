@@ -1,5 +1,5 @@
 <?php
- $sql = "SELECT * FROM exchange_office LEFT JOIN currency_list on exchange_office.exchange_office_id = currency_list.exchange_office_id WHERE currency_id = '1'";
+ $sql = "SELECT * FROM exchange_office LEFT JOIN currency_list on exchange_office.exchange_office_id = currency_list.exchange_office_id WHERE currency_id = '1' AND activation = '1'";
     $res = $conn->query($sql);
     foreach ($res as $key => $value) {
         $names[] = $value['exchange_office_name'];

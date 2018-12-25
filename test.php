@@ -97,5 +97,5 @@
     Tim Menjator
     ";
 
-    echo $message;
+    header("location: index.php?page=login");
 ?>

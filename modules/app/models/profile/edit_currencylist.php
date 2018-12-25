@@ -2,20 +2,23 @@
 	if(isset($_POST['edit_currency'])){
 
 			foreach($_POST as $key => $value) {
-
     			if (strpos($key, 'label') === 0) {
         			$label_post[] = $value;
     			}
     			if (strpos($key, 'sell_rate') === 0) {
-        			$sell_rate_post[] = str_replace(",", ".", $value);
+        			$buy_rate_post[] = str_replace(",", ".", $value);
     			}
     			if (strpos($key, 'buy_rate') === 0) {
-        			$buy_rate_post[] = str_replace(",", ".", $value);
+        			$sell_rate_post[] = str_replace(",", ".", $value);
     			}
 
     			
 			}
-			
+			foreach ($sell_rate_post as $key => $value) {
+				if($value > 0) {
+					$sells[] = $value;
+				}
+			}
 			$sell = count($sell_rate_post);
 			$buy = count($buy_rate_post);
 			foreach($label_post as $key => $value){
@@ -38,12 +41,24 @@
 			$result = $stmt->get_result();
 			$list = $result->num_rows;
 
+			$stmt = $conn->prepare("SELECT * FROM exchange_office WHERE exchange_office_id = ?");
+			$stmt->bind_param('d', $exchange_office_id);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			foreach ($result as $key => $value) {
+				$eo_name = $value['exchange_office_name'];
+			}
+
 			if($sell==$buy){
 				foreach ($currencyid as $key => $value) {
 					
 					if($list>0){
 						$stmt = $conn->prepare("UPDATE currency_list SET sell_rate=?, buy_rate=?, `date` = ? WHERE exchange_office_id=? AND currency_id=?");
-						$stmt->bind_param('ddsdd',$sell_rate_post[$key],$buy_rate_post[$key], $date, $exchange_office_id,$value);
+						$stmt->bind_param('ddsdd',$sell_rate_post[$key],$buy_rate_post[$key], $date, $exchange_office_id, $value);
+						$stmt->execute();
+
+						$stmt = $conn->prepare("INSERT INTO all_time_currency (exchange_office_name, currency_label, sell_rate, buy_rate, date) VALUES (?, ?, ?, ?, ?)");
+						$stmt->bind_param('ssdds', $eo_name, $label_post[$key], $sell_rate_post[$key], $buy_rate_post[$key], $date);
 						$stmt->execute();
 						header("location:index.php?page=profile&id=$exchange_office_id");
 					}else{
