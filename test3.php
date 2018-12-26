@@ -1,143 +1,111 @@
-<?php
-    include "modules/db/connection.php";
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{TITLE}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:700|Patua+One|Roboto+Condensed:700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <link rel="stylesheet" href="./modules/app/assets/stylesheets/main.css">
+</head>
+<body>
     
-    include "functions/functions_api.php";
-
-    $lat = $lat1 = $_POST['lat'];
-    $lng = $lng1 =$_POST['lng'];
     
-    $api = 'AIzaSyBJBn7elZA5meKmAECWwDy3jT9480ULzB4';
-    $start = "$lat,$lng";
-    $destinations = ''; # '44.8175329,20.4179972';
 
-    // $stmt = $conn->prepare('SELECT * FROM exchange_office_location');
-    $stmt = $conn->prepare('SELECT *, 6371 * 2 * ASIN(SQRT( POWER(SIN((? - exchange_office_lat) *  pi()/180 / 2), 2) +COS(? * pi()/180)
-    * COS(exchange_office_lat * pi()/180) * POWER(SIN((? - exchange_office_lng) * pi()/180 / 2), 2) )) AS distance FROM exchange_office_location ORDER BY distance LIMIT 0,5');
-    $stmt->bind_param('sss', $lat, $lat, $lng);
-    $stmt->execute();
-    $results = $stmt->get_result();
+    <div id="main" class="container">
+        <div id='profile_lat'></div>
+            <div id='profile_lng'></div>
+			<div id='info' class='info mx-auto mt-3' >
+                <div class='row mx-auto'>
+                    <div class='col-12'>
+						<div id='map' class='row mx-auto h-100 card' style='min-height:60vh;'></div>
+					</div>
+					<div class='col-12 align-middle'>
+						<table class='table border table-borderless text-center'>
+                            <thead>
+                                <tr>
+                                    <th rowspan='3' id='eo_name' class='eo_name align-bottom border-right'>%s</th>
+                                    <th rowspan='2' class='align-middle border'><i class='fa fa-map-marker mr-2 ' aria-hidden='true'></i> Lokacija</th>
+                                    <th colspan='2' class='align-middle border'>Kontakt</th>
+                                </tr>
+                                <tr>
+                                    <th class='align-middle border'><i class='fa fa-phone my-auto' aria-hidden='true'></i></td>
+                                    <th class='align-middle border'><i class='fa fa-envelope my-auto' aria-hidden='true'></i><span class='my-auto ml-2'></td>    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class='align-middle border-right'></td>
+                                    <td class='align-middle border'><span class='align-middle my-auto'>%s</span></td>
+                                    <td class='align-middle border'><span class='align-middle my-auto'>%s</span></td>
+                                    <td class='align-middle border'><span class='align-middle my-auto'>%s</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-    # PRAVIMO $destinations za api_url
 
-    foreach ($results as $key => $result) {
-        $lat = $result['exchange_office_lat'];
-        $lng = $result['exchange_office_lng'];
-        $ids[] = $result['exchange_office_id'];
-        if($key == 0) {
-            $destinations = $lat . ',' . $lng;
-        } else {
-            $destinations .= "|" . $lat . ',' . $lng;
-        }
-    }
 
-    #racunamo razdaljinu i potrebno vreme
 
-    $drivingDist = calcDrivingMulti($start, $destinations, $api, $conn);
-    $walkingDist = calcWalkingMulti($start, $destinations, $api, $conn);
 
-    #racunamo najblize preko formule u bazi radi uporede, i radi koriscenja tacnih imena ulica posto gugl api malo baguje
+                    <!-- STARI PROFIL -->
+                    <div id='profile_lat'></div>
+            <div id='profile_lng'></div>
+			<div id='info' class='info mx-auto mt-3' >
+                <div class='row mx-auto'>
+                    <div class='col-12'>
+						<div id='map' class='row mx-auto h-100 card' style='min-height:60vh;'></div>
+					</div>
+					<div class='col-12 align-middle border'>
+						<div id='eo_name' class='col-4 border text-left h2 eo_name ml-2 my-2'>%s</div>
+						<div class='col-4 border ml-2 my-2'>
+							<div class='row'>
+								<div class='col h6 my-2'><i class='fa fa-map-marker mr-2 ' aria-hidden='true'></i> Lokacija</div>
+								<div class='col my-2'>%s</div>
+							</div>
+						</div>
+						<p class='col-4 ml-2 h6 my-2'>Kontakt</p>
+						<div id='contact_phone' class='col ml-2 my-2 align-middle'><i class='fa fa-phone my-auto' aria-hidden='true'></i><span class='my-auto ml-2'> %s</span></div>
+						<div id='contact_email' class='col ml-2 my-2 align-middle'><i class='fa fa-envelope my-auto' aria-hidden='true'></i><span class='my-auto ml-2'> %s</span></div>
+                    </div>
+                    <div class='clearfix border'></div>
+				</div>
+			</div>
+                <div class='clearfix border'></div>
+			</div>
+		</div>
+    </div>
 
-    $closestDb = getClosestDb($lat1, $lng1, $conn);
-    foreach ($drivingDist as $key => $value) {
-        $time = $value[2];
-        $dist = $value[1];
-        $dist = substr($dist, 0, strpos($dist, ' '));
-        $dist = (double)($dist);
-        $drivingDistances[] = $dist;
-    }
-    foreach ($walkingDist as $key => $value) {
-        $time = $value[2];
-        $dist = $value[1];
-        $dist = substr($dist, 0, strpos($dist, ' '));
-        $dist = (double)($dist);
-        $walkingDistances[] = $dist;
-    }
 
-    #sortiramo distance od najmanje ka najvecoj
-    sort($drivingDistances);
-    sort($walkingDistances);
 
-    #pravimo 5 najblizih
 
-    foreach($drivingDistances as $key => $value) {
-        if(count($drivingDistances) == count($drivingDist)) {
-            foreach ($drivingDist as $key => $dist) {
-                if($value == $dist[1]) {
-                    $one = array($dist[0], $dist[1], $dist[2]);
-                    $closest_driving[] = $one;
-                }
-            }
-        }
-    }
 
-    foreach($walkingDistances as $key => $value) {
-        if(count($walkingDistances) == count($walkingDist)) {
-            foreach ($walkingDist as $key => $dist) {
-                if($value == $dist[1]) {
-                    $one = array($dist[0], $dist[1], $dist[2]);
-                    $closest_walking[] = $one;
-                }
-            }
-        }
-    }
 
-    $closest_5_driving = array_slice($closest_driving, 0, 5);
-    $closest_5_walking = array_slice($closest_walking, 0, 5);
-    $currencies = array(1,2,3,4,5);
 
-    foreach($ids as $key => $id) {
-        $stmt = $conn->prepare('SELECT * FROM currency_list WHERE exchange_office_id = ? AND (currency_id BETWEEN ? AND ?) ORDER BY currency_id');
-        $stmt->bind_param('ddd', $id, $currencies[0], $currencies[count($currencies)-1]);
-        $stmt->execute();
-        $results = $stmt->get_result();
-        foreach ($results as $key => $row) {
-            $sell_rate = $row['sell_rate'];
-            $buy_rate = $row['buy_rate'];
-            $rate = array($sell_rate, $buy_rate);
-            $rates[] = $rate;
-        }
-    }
-?>
 
-<?php
-    $format = "
-    <div class='row mt-5'>
-        <table class='table table-bordered text-center table-hover'>
-            <thead>
-                <tr>
-                    <th rowspan='2' class='align-middle'>Menjacnica</th>
-                    <th rowspan='2' class='align-middle'>Lokacija</th>
-                    <th colspan='2' class='align-middle'>Eur</th>
-                    <th rowspan='2' class='align-middle'>Razdaljina kolima</th>
-                    <th rowspan='2' class='align-middle'>Vreme kolima</th>
-                    <th rowspan='2' class='align-middle'>Razdaljina pesice</th>
-                    <th rowspan='2' class='align-middle'>Vreme pesice</th>
-                </tr>
-                <tr>
-                    <td class='align-middle'>Prodajni kurs</td>
-                    <td class='align-middle'>Kupovni kurs</td>
-                </tr>
-            </thead>
-            <tbody>
-                    %s
-            </tbody>
-        </table>
-    </div>";
-    $table = "<tr>
-                <td class='align-middle'>%s</td>
-                <td class='align-middle'>%s</td>
-                <td class='align-middle'>%s</td>
-                <td class='align-middle'>%s</td>
-                <td class='align-middle'>%s</td>
-                <td class='align-middle'>%s</td>
-                <td class='align-middle'>%s</td>
-                <td class='align-middle'>%s</td>
-            </tr>";
-    $form = "";
-    for($i = 0; $i < 5; $i++) {
-        
-        $form .= sprintf($table, $closestDb[$i][2], $closestDb[$i][3], $rates[$i][0], $rates[$i][1], $closest_5_driving[$i][1], $closest_5_driving[$i][2], $closest_5_walking[$i][1], $closest_5_walking[$i][2]);
-    }
-    $output = sprintf($format, $form);
-    echo $output;
-?>
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJBn7elZA5meKmAECWwDy3jT9480ULzB4&callback=initMap"
+    async defer></script>
+    
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script type="text/javascript" src="./modules/app/assets/javascripts/chart.js"></script>
+    <script type="text/javascript" src="./modules/app/assets/javascripts/prof_chart.js"></script>
+    <script type="text/javascript" src="./modules/app/assets/javascripts/location.js"></script>
+    <script src="./modules/app/assets/javascripts/main.js" type="text/javascript"></script>
+    <script src="./modules/app/assets/javascripts/register.js" type="text/javascript"></script>
+    <script src="./modules/app/assets/javascripts/exchange_info.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 var x = document.getElementById("lng");
 var y = document.getElementById('lat');
- 
+
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -8,32 +8,97 @@ function getLocation() {
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
 }
-    
+
 function showPosition(position) {
     x.innerHTML = position.coords.longitude;
     y.innerHTML = position.coords.latitude;
 }
 
+// Isto kao gore, uzimamo lokaciju zapisujemo u hidden div
+
+var $lat = document.getElementById("profile_lat");
+var $lng = document.getElementById('profile_lng');
+
+function getPositionProfile() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPositionProfile);
+    } else { 
+        $lng.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPositionProfile(position) {
+    $lat.innerHTML = position.coords.latitude;
+    $lng.innerHTML = position.coords.longitude;
+}
+
 $(document).ready(function() {
 
-    
+    // var eo_name = $('#eo_name').text();
 
-    $('#lat').bind("DOMSubtreeModified",function(){
+    
+    // tek kada se upisu vrednosti u #lng/#lat da posalje ajax, ne pre
+    $('#lat').bind("DOMSubtreeModified", function(){
         var lat = $('#lat').text();
         var lng = $('#lng').text();
-        $.ajax({
-            url: './modules/app/models/fetch_closest.php',
-            method: 'post',
-            data: {lat: lat, lng: lng},
-            dataType: 'text',
-            beforeSend: function() {
-                $("#loading-ajax").show();
-            },
-            success: function(data) {
-                $('#info').html(data);
-            }
-        });
+        if(lat != "" && lng != "") {
+            $.ajax({
+                url: './modules/app/models/fetch_closest.php',
+                method: 'post',
+                data: {lat: lat, lng: lng},
+                dataType: 'text',
+                beforeSend: function() {
+                    $("#loading-ajax").show();
+                },
+                success: function(data) {
+                    $('#info').html(data);
+                }
+             });
+        }
     });
+
+    if($('.eo_name')) {
+        var eo_name = $('.eo_name').text();
+    } else {
+        var eo_name = ' Frange Menjacnica';
+    }
+    getPositionProfile();
+   
+    // Tek kada se upisu vrednosti u profile_lng da se salje ajax sa trenutnom lokacijom, nazivom menjacnice
+    $('#profile_lng').bind("DOMSubtreeModified", function(){
+        var lat = $('#profile_lat').text();
+        var lng = $('#profile_lng').text();
+        console.log($lat);
+        console.log($lng);
+        if($lat != "" && $lng != "") {
+            $.ajax({
+                type: 'post',
+                url: "./modules/app/views/pages/profile/fetch_profile.php",
+                data: {exchange_office_name: eo_name, latitude: lat, longitude: lng},
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                    // pravi se gugl mapa sa koordinatama prve menjacnice u JSONU, trebalo bi da je ta najbliza
+                    var map = initMap(data[0].lat, data[0].lng);
+                    
+        
+                    $.each(data, function() {
+                        // postavljaju se markeri za each element json-a, tj svaku menjacnicu
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(this.lat, this.lng),
+                            map: map,
+                            title: eo_name,
+                        });
+                    });
+                }
+            });
+        } else {
+            console.log('Ne valja');
+        }
+    });
+    
+    
+    
 
     $("#search_box").keyup(function(e) {
         e.preventDefault();
@@ -215,4 +280,12 @@ $(document).ready(function() {
 
     
 });
-
+//  Funkcija za kreiranje google mape
+var map;
+function initMap(lat, lng) {
+      map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: new google.maps.LatLng(lat, lng),
+    })
+    return map;
+}

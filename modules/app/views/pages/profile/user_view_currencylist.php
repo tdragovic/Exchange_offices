@@ -10,13 +10,14 @@
 	// print_r($currency);
 
 	if(count($currency_label) == count($sell_rate)){
-			echo "
+            echo "<div class='col-6 mx-auto'>
+                    <div class='justify-content-center h2 my-4'>Kursna lista</div>
 					<table class='table table-striped table-bordered'>
 						<thead>
 							<tr>
 								<th scope='col-1'>Valuta</th>
-								<th scope='col-1'>Prodajni kurs</th>
 								<th scope='col-1'>Kupovni kurs</th>
+								<th scope='col-1'>Prodajni kurs</th>
 								<th scope='col-1'>Razlika</th>
 							</tr>
 						</thead>
@@ -44,6 +45,7 @@
 						
 						echo "</tbody>
 						</table>
+						</div>
 						<a href='index.php?page=profile&id=$get_id&action=edit_currencylist'><input type='button' id='currency_edit' class='btn-dark text-warning btn' name='edit_currency' value='Izmeni'>				
 						</form>";
 				

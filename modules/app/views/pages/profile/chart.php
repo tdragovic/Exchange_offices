@@ -6,7 +6,7 @@
         
 		$exchange_office_id = $metoda;
 		$curr_id = 'EUR';
-        $stmt = $conn->prepare("SELECT * FROM all_time_currency INNER JOIN exchange_office ON all_time_currency.exchange_office_name = exchange_office.exchange_office_name  WHERE exchange_office.exchange_office_name = ? AND currency_label = ?");
+        $stmt = $conn->prepare("SELECT * FROM all_time_currency INNER JOIN exchange_office ON all_time_currency.exchange_office_name = exchange_office.exchange_office_name  WHERE exchange_office.exchange_office_name = ? AND currency_label = ? AND date >= ( CURDATE() - INTERVAL 5 DAY) ");
         $stmt->bind_param('ss', $exchange_office_id, $curr_id);
         $stmt->execute();
         $result = $stmt->get_result();

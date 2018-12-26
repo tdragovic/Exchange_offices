@@ -121,7 +121,9 @@
 				$rate_sell = (double)$rate_sell;
 				$curr_label = trim($curr_label);
 				
-				
+				echo $curr_label . " ";
+				echo $rate_buy . " ";
+				echo $rate_sell;
 				//echo $exchange_office_id . " " . $curr_label . " " . $rate_sell . " " . $avg_rate . " " . $rate_buy . "<br>";
 
 				$sql = "SELECT currency_id FROM currency WHERE currency_label = '$curr_label'";
@@ -140,29 +142,24 @@
 				
 
 				//Ili radi insert ili update, numero treba korigovati
-				if($result->num_rows >= $numero) {
-					if($rate_buy != 0) {
+				// if($result->num_rows >= $numero) {
+				// 	if($rate_buy != 0) {
 						foreach($result as $key => $value) {
 							$stmt = $this->conn->prepare("UPDATE currency_list SET sell_rate = ?, avg_rate = ?, buy_rate = ?, `date` = ? WHERE exchange_office_id = ? AND currency_id = ?");
 							$stmt->bind_param('dddsdd', $rate_sell, $avg_rate, $rate_buy, $date, $exchange_office_id, $id);
 							$stmt->execute();
 						}
-					} 
-				} else {
-					if($rate_buy != 0) {
-						$stmt = $this->conn->prepare("INSERT INTO currency_list (exchange_office_id, currency_id, sell_rate, avg_rate, buy_rate, date) VALUES ('$exchange_office_id', '$id', ?, ?, ?, ?)");
-						$stmt->bind_param('ddds', $rate_sell, $avg_rate, $rate_buy, $date);
-						$stmt->execute();
-					}
-				}
-				// $stmt = $this->conn->prepare("INSERT INTO all_time_currency (exchange_office_id, currency_label, sell_rate, avg_rate, buy_rate, date) VALUES ('$exchange_office_id', '$curr_label', ?, ?, ?, ?)");
-				// $stmt->bind_param('ddds', $rate_sell, $avg_rate, $rate_buy, $date);
-				// $stmt->execute();
+				// 	} 
+				// } else {
+				// 	if($rate_buy != 0) {
+				// 		$stmt = $this->conn->prepare("INSERT INTO currency_list (exchange_office_id, currency_id, sell_rate, avg_rate, buy_rate, date) VALUES ('$exchange_office_id', '$id', ?, ?, ?, ?)");
+				// 		$stmt->bind_param('ddds', $rate_sell, $avg_rate, $rate_buy, $date);
+				// 		$stmt->execute();
+				// 		echo "done";
+
+				// 	}
+				// }
 			}
-			
-			//$stmt = $this->conn->prepare("INSERT INTO currency_list (exchange_office_id, currency_id, sell_rate, avg_rate, buy_rate, date) VALUES ('$exchange_office_id', '$id', ?, ?, ?, ?)");
-			//stmt->bind_param('ddds', $rate_sell, $avg_rate, $rate_buy, $date);
-			//$stmt->execute();
 		}
 		
 	}
@@ -182,52 +179,4 @@
 	$sc->setName("aik");
 	$sc->get_table("https://www.aikbanka.rs/kursna-lista", "//*[@id='exchangeRates']/div[2]/table/tbody/tr");
 
-	/*
-		function getCurrency($url, $exchange_office_id, $table_query, $curr_label_query, $curr_code_query, $curr_title_query, $rate_sell_query, $avg_rate_query, $rate_buy_query) {
-			$date = date("Y-m-d", time());
-			$niz = array();
-			@$this->doc->loadHTML($this->scrape($url));
-			$this->xpath = new DOMXPath($this->doc);
-			$res = $this->xpath->query($table_query);
-			print_r($res);
-			for($i = 1; $i < $res->length; $i ++) {
-				$arr = array();
-				$result = $this->xpath->query($curr_label_query);
-				foreach ($result as $key => $value) {
-					$curr_label[] = $value->nodeValue;
-					$current_label = $value->nodeValue;
-				}
-				$result = $this->xpath->query($curr_code_query);
-				foreach ($result as $key => $value) {
-					$curr_code = $value->nodeValue;
-				}
-				$result = $this->xpath->query($curr_title_query);
-				foreach ($result as $key => $value) {
-					$curr_title = $value->nodeValue;
-				}
-				$result = $this->xpath->query($rate_sell_query);
-				foreach ($result as $key => $value) {
-					$rate_sell = $value->nodeValue;
-				}
-				$result = $this->xpath->query($avg_rate_query);
-				foreach ($result as $key => $value) {
-					$avg_rate = $value->nodeValue;
-				}
-				$result = $this->xpath->query($rate_buy_query);
-				foreach ($result as $key => $value) {
-					$rate_buy = $value->nodeValue;
-				}
-
-				$sql = "SELECT currency_id FROM currency WHERE currency_label = '$current_label'";
-				$result = $this->conn->query($sql);
-				foreach ($result as $key => $value) {
-					$id = $value['currency_id'];
-				}
-
-				$stmt = $this->conn->prepare("INSERT INTO currency_list (exchange_office_id, currency_id, sell_rate, avg_rate, buy_rate, date) VALUES ('$exchange_office_id', '$id', ?, ?, ?, ?)");
-				$stmt->bind_param('ddds', $rate_sell, $avg_rate, $rate_buy, $date);
-				$stmt->execute();				
-			}		
-		}
-		*/
 ?>
