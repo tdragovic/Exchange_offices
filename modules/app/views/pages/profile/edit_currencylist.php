@@ -25,7 +25,7 @@
 					<button type="submit" id="save_xml" class="btn-dark text-warning btn " name="save_xml">Upiši</button>
 				</div>
 			</form>
-			<div id='show_desc' class='m-2'>Uputstvo!</div>
+			<div id='show_desc' class='m-2' style='cursor: pointer;'>Uputstvo!</div>
 			<form id='description' method='GET' action='' class='col-8 border text-center justify-content-center mx-auto'>
 				<p>XML fajl ucitaćete klikom na dugme "Učitaj XML". Ukoliko je fajl validan i u formatu koji
 						odgovara našoj aplikaciji biće uspešno učitan. Nakon odabira fajla klikom na dugme "Upiši" 
@@ -93,7 +93,7 @@
 								foreach ($labels as $key => $value){
 									
 									if(($sells[$key]!='')&&($buys[$key]!='')){
-										$d = (float)$sells[$key] - (float)$buys[$key];
+										$d = abs((float)$sells[$key] - (float)$buys[$key]);
 										$t = sprintf("<tr>
 
 											<td><label>%s</label><input type='hidden' name='label%d' value='%s'></td>
@@ -134,7 +134,7 @@
 								foreach ($label_view as $key => $value){
 
 									if(($sell_rate[$key]!='')&&($buy_rate[$key]!='')){
-										$d = $sell_rate[$key] - $buy_rate[$key];
+										$d = abs($sell_rate[$key] - $buy_rate[$key]);
 										$t = sprintf("<tr>
 
 											<td><label>%s</label><input type='hidden' name='label%d' value='%s'></td>

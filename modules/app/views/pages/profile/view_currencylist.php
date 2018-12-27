@@ -25,7 +25,7 @@
 								<td>%s</td>
 								<td>%s</td>
 								<td>%s</td>
-								</tr>", $currency_label[$i], $buy_rate[$i], $sell_rate[$i], $diff[$i]);
+								</tr>", $currency_label[$i], $sell_rate[$i], $buy_rate[$i], $diff[$i]);
 							echo $currency_info;
 						} else {
 							$counter++;

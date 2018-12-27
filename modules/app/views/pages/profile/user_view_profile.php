@@ -8,7 +8,9 @@
 
 			$location_str = implode(', ',$location);
 		}
-		
+        $phone = str_replace(" ", "&nbsp", $phone);
+        // $phone = substr($phone, 4);
+
         $informations= sprintf("
             <div id='profile_lat'></div>
             <div id='profile_lng'></div>

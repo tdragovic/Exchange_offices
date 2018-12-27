@@ -35,7 +35,7 @@ function showPositionProfile(position) {
 $(document).ready(function() {
 
     // var eo_name = $('#eo_name').text();
-
+    
     
     // tek kada se upisu vrednosti u #lng/#lat da posalje ajax, ne pre
     $('#lat').bind("DOMSubtreeModified", function(){
@@ -52,9 +52,11 @@ $(document).ready(function() {
                 },
                 success: function(data) {
                     $('#info').html(data);
+                    $('#container').show();
                 }
              });
         }
+
     });
 
     if($('.eo_name')) {
@@ -216,7 +218,7 @@ $(document).ready(function() {
     $('#reg_pass_confirm').keyup(function() {
         var password = $('#reg_pass').val();
         var password_confirm = $('#reg_pass_confirm').val();
-        if(password != '' && password_confirm.length > 4) {
+        if(password != '' && password.length > 4 && password_confirm.length > 4) {
             if(password_confirm != password) {
                 $('#err4').html('Lozinke se razlikuju');
             } else {
@@ -229,12 +231,15 @@ $(document).ready(function() {
     $('#reg_pass_confirm').on('change', function(e) {
         var password = $('#reg_pass').val();
         var password_confirm = $('#reg_pass_confirm').val();
-        
-        if(password != password_confirm) {
-            $('#err4').html('Lozinke se razlikuju');
+        if(password.length < 5 || password_confirm.length < 5) {
+            $('#err3').html('Lozinka mora biti duža od 4 karaktera');
         } else {
-            $('#err3').html('');
-            $('#err4').html(''); 
+            if(password != password_confirm) {
+                $('#err4').html('Lozinke se razlikuju');
+            } else {
+                $('#err3').html('');
+                $('#err4').html('');
+            }
         }
     });
     

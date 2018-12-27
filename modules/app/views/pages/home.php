@@ -33,7 +33,7 @@
         <div id='info' class="row text-center mx-auto my-5" style='min-height: 67vh;'>
             <img id="loading-ajax" class='text-center mx-auto my-auto'  src="./modules/app/assets/images/ajax-loader.gif" style="display:none;"/>                    
         </div>
-        <div id="container" class="row text-center mx-auto my-5">
+        <div id="container" class="row text-center mx-auto my-5" style='display: none;'>
             <table id="currency_table" class="table table-bordered table-striped">
                 <thead>
                     <tr>
